@@ -1,14 +1,9 @@
 package com.eventwebapp.entities.users;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -23,21 +18,14 @@ public class User implements Serializable {
     @GeneratedValue
     Long id_user;
 
-    @NotEmpty
-    @Size(min = 2, max = 30, message = "Names are capped at 30 characters")
     String firstname;
 
-    @NotEmpty
-    @Size(min = 2, max = 30, message = "Names are capped at 30 characters")
     String lastname;
 
-    @NotNull
     String password;
 
-    @NotEmpty @Email
     String email;
 
-    @Size(min = 10, message = "Phone numbers must be at least 10 characters long")
     String phone;
 
     public User() {

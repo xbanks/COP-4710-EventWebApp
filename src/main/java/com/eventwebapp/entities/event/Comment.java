@@ -1,13 +1,10 @@
 package com.eventwebapp.entities.event;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -31,8 +28,7 @@ public class Comment  {
     @GeneratedValue
     Date timestamp;
 
-    @NotEmpty
-    @Size(min = 1, max = 140, message = "Comments Limited to 140 characters")
+    @NotNull
     String content;
 
     public Comment() {

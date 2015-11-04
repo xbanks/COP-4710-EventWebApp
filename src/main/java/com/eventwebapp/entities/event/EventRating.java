@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -19,10 +17,9 @@ public class EventRating implements Serializable{
     @Id
     Long event;
 
-    @NotNull
     Long reviewer;
 
-    @Min(value = 0) @Max(value = 5)
+    @Max(value = 5)
     Integer rating;
 
     public EventRating() {
