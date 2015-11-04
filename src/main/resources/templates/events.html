@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8" />
+    <title>Events</title>
+</head>
+<body>
+    <h1>Events</h1>
+    <div th:each="e : ${events}">
+        <div>
+            <b th:text="${e.id_event}">ID</b> -
+            <b th:text="${e.name}">Name</b>
+            <b th:text="${e.description}">Description</b>
+            <b th:text="${e.date}">Date</b>
+        </div>
+    </div>
+</body>
+</html>
