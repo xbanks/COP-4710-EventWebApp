@@ -2,6 +2,7 @@ package com.eventwebapp.entities.users;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Xavier on 11/2/2015.
@@ -14,6 +15,7 @@ public class Admin  {
     @Id
     Long id_admin;
 
+    @NotNull
     Long owned_rso;
 
     public Admin() {

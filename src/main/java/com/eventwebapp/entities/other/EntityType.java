@@ -1,5 +1,7 @@
 package com.eventwebapp.entities.other;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,6 +18,7 @@ public class EntityType implements Serializable {
     @Id
     Long id_entity_name;
 
+    @NotEmpty
     String entity_name;
 
     public EntityType() {

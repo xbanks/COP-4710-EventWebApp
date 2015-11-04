@@ -16,6 +16,7 @@ public class UserRole implements Serializable{
     @Id
     Long user;
 
+
     Long role;
 
     public UserRole() {

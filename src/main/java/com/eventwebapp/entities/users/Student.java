@@ -1,8 +1,12 @@
 package com.eventwebapp.entities.users;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Xavier on 11/2/2015.
@@ -15,8 +19,10 @@ public class Student {
     @Id
     Long id_student;
 
+    @NotNull
     Long university_attending;
 
+    @NotEmpty @Email
     String university_email;
 
     public Student() {

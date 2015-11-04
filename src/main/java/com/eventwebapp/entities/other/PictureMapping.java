@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Xavier on 11/2/2015.
@@ -17,10 +18,13 @@ public class PictureMapping {
     @GeneratedValue
     Long id_picture_mapping;
 
+    @NotNull
     Long mapped_to_id;
 
+    @NotNull
     Long entity_type;
 
+    @NotNull
     Long picture;
 
     public PictureMapping() {

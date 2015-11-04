@@ -1,5 +1,7 @@
 package com.eventwebapp.entities.other;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ public class Picture implements Serializable {
     @GeneratedValue
     Long id_picture;
 
+    @NotEmpty
     String path;
 
     public Picture() {

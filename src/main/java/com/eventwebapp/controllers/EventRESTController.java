@@ -77,19 +77,10 @@ public class EventRESTController {
             System.out.println("Invalid Event Created");
             return "newevent";
         }
-//        if(!eventValidator.validate(event)) {
-//            model.addAttribute("locations", locationRepo.findAll());
-//            model.addAttribute("eventTypes", eventTypeRepo.findAll());
-//            model.addAttribute("rsos", rsoRepo.findAll());
-//            model.addAttribute("event", event);
-//
-//            System.out.println("Invalid Event Created");
-//            return "newevent";
-//        }
 
         Event e = eventRepo.save(event);
         System.out.println(e);
-        return String.format("redirect:/events/%d", + e.getId_event());
+        return String.format("redirect:/events/%d", e.getId_event());
     }
 }
 

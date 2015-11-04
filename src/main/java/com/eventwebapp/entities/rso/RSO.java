@@ -1,9 +1,13 @@
 package com.eventwebapp.entities.rso;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -18,12 +22,16 @@ public class RSO implements Serializable {
     @GeneratedValue
     Long id_rso;
 
+    @NotEmpty @Size(min = 3, max = 50)
     String name;
 
+    @NotNull
     Long type;
 
+    @NotNull
     Integer num_members;
 
+    @NotNull
     Long university;
 
     public RSO() {

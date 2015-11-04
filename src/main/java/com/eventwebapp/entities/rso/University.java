@@ -1,8 +1,13 @@
 package com.eventwebapp.entities.rso;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -10,21 +15,26 @@ import java.io.Serializable;
  */
 
 @Entity
-//@Table(name = "university")
+@Table(name = "university")
 public class University implements Serializable {
 
     @Id
     @GeneratedValue
     Long id_university;
 
+    @NotEmpty
     String name;
 
+    @NotEmpty @Size(max = 500)
     String description;
 
+    @NotNull
     Long uni_location;
 
+    @NotNull
     Long num_students;
 
+    @NotEmpty @Size(max = 10)
     String short_name;
 
     public University() {

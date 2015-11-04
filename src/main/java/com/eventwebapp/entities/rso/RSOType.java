@@ -1,5 +1,7 @@
 package com.eventwebapp.entities.rso;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ public class RSOType implements Serializable {
     @Id
     Long id_rso_type;
 
+    @NotEmpty
     String name;
 
     public RSOType() {
