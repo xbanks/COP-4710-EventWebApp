@@ -45,7 +45,7 @@ public class UserRESTController {
     }
 
     // Used for post request using JSON
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "api/new/", method = RequestMethod.POST)
     public ResponseEntity<User> CreateNewUser (@RequestBody User user){
         if(userRepo.findByEmail(user.getEmail()) != null){
             return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
