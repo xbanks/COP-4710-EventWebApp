@@ -1,5 +1,8 @@
 package com.eventwebapp.entities.users;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,12 +21,16 @@ public class User implements Serializable {
     @GeneratedValue
     Long id_user;
 
+    @NotEmpty
     String firstname;
 
+    @NotEmpty
     String lastname;
 
+    @NotEmpty
     String password;
 
+    @NotEmpty @Email
     String email;
 
     String phone;

@@ -8,7 +8,6 @@ import com.eventwebapp.repositories.RSORepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -33,13 +32,13 @@ public class EventValidator implements ValidatorInterface<Event> {
     public boolean validate(Event entity) {
         boolean emptyName = (entity.getName() == null || entity.getName().trim() == "");
         boolean emptyDesc = (entity.getDescription() == null || entity.getDescription().trim() == "");
-        boolean pastOrNullDate = (entity.getDate() == null || entity.getDate().isBefore(LocalDate.now()));
+//        boolean pastOrNullDate = (entity.getDate() == null || entity.getDate().isBefore(LocalDate.now()));
         boolean pastOrNullTime = (entity.getTime() == null || entity.getTime().isBefore(LocalTime.now()));
         boolean locationDNE = (entity.getLocation() == null || !(locationRepo.findOne(entity.getLocation()) == null));
         boolean rsoDNE = (entity.getHost_rso() == null || !rsoRepo.exists(entity.getHost_rso()));
         boolean typeDNE = (entity.getType() == null || !eventTypeRepo.exists(entity.getType()));
 
-        return !(emptyName || emptyDesc || pastOrNullDate || pastOrNullTime
+        return !(emptyName || emptyDesc || /*pastOrNullDate ||*/ pastOrNullTime
                 || locationDNE || rsoDNE || typeDNE);
 
     }

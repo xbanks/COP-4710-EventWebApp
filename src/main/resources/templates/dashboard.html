@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <table>
+        <tr>
+            <td>Create a new User</td>
+            <td><a href="#" th:href="@{/user/new}">Link</a></td>
+        </tr>
+        <tr>
+            <td>Create a new Event</td>
+            <td><a href="#" th:href="@{/events/new}">Link</a></td>
+        </tr>
+    </table>
+</body>
+</html>

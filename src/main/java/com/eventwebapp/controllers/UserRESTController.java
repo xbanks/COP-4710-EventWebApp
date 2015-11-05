@@ -1,6 +1,8 @@
 package com.eventwebapp.controllers;
 
 import com.eventwebapp.entities.users.User;
+import com.eventwebapp.forms.SignupForm;
+import com.eventwebapp.repositories.UniversityRepo;
 import com.eventwebapp.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,23 +26,53 @@ public class UserRESTController {
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    UniversityRepo universityRepo;
+
     // Serves the model form
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String NewUser(Model model){
+    public String NewUser(Model model, SignupForm signupForm){
+        model.addAttribute("universities", universityRepo.findAll());
+//        model.addAttribute("form", form);
         return "newuser";
+    }
+
+    @RequestMapping(value = "/something", method = RequestMethod.GET)
+    public String user(User user, Model model){
+        if(user.equals(null)){
+            return "newuser";
+        }
+        System.out.println(user);
+        model.addAttribute("message", String.format("Hello from: user %s", user));
+        return "placeholder";
     }
 
     // This would be used from a form
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createNewUser(Model model, @Valid User user, BindingResult bindingResult){
-        if(bindingResult.hasErrors() || userRepo.findByEmail(user.getEmail()) != null){
-            return "placeholder";
+    public String createNewUser(Model model, @Valid SignupForm signupForm, BindingResult bindingResult){
+
+        // Shows if there were any validation errors with the form
+        boolean errorExists = false;
+        if(bindingResult.hasErrors()){
+            System.out.println("Form Screwed");
+            errorExists = true;
+        }
+        if(userRepo.findByEmail(signupForm.getUserEmail()) != null){
+            bindingResult.rejectValue("userEmail", "error.signupForm", "This email is already registered");
+            System.out.println("Email taken");
+        }
+        if(errorExists){
+            model.addAttribute("universities", universityRepo.findAll());
+            return "newuser";
         }
 
         // TODO: Use this to login after saving
+        User user = signupForm.createUser();
         User u = userRepo.save(user);
+        System.out.println("Successfully created user");
 
         // TODO: Maybe send to the student creation page?
+        model.addAttribute("message", String.format("Successfully created user: %s", u));
         return "placeholder";
     }
 

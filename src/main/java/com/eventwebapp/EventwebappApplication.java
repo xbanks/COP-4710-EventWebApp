@@ -14,8 +14,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @SpringBootApplication
 public class EventwebappApplication {
@@ -53,8 +53,8 @@ public class EventwebappApplication {
             Long privateID = eventTypeRepo.save(new EventType(2L, "private")).getId_event_type();
             Long rsoID = eventTypeRepo.save(new EventType(3L, "rso")).getId_event_type();
 
-            Long eventId = eventRepo.save(new Event(LocalDate.now(), LocalTime.now().plusHours(5).plusMinutes(30), locId, "This is a test event for the Kendo Club", false, false, publicID, rsoId, "Test Event")).getId_event();
-            Long eventId2 = eventRepo.save(new Event(LocalDate.now(), LocalTime.now().plusHours(12).plusMinutes(25), locId, "This is the second event for the Kendo Club", false, false, publicID, rsoId, "Event Number 2")).getId_event();
+            Long eventId = eventRepo.save(new Event(new Date(2016, 7, 7), LocalTime.now().plusHours(5).plusMinutes(30), locId, "This is a test event for the Kendo Club", false, false, publicID, rsoId, "Test Event")).getId_event();
+            Long eventId2 = eventRepo.save(new Event(new Date(2016, 7, 7), LocalTime.now().plusHours(12).plusMinutes(25), locId, "This is the second event for the Kendo Club", false, false, publicID, rsoId, "Event Number 2")).getId_event();
         };
     }
 }

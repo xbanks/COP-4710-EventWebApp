@@ -1,19 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Create a new User</title>
+    <title>Sign Up</title>
 </head>
 <body>
-<h1>Reservations</h1>
+<h1>Sign Up</h1>
+<a href="#" th:href="@{/}">Dashboard</a>
 <div>
     <div>
-        <form>
-            Email: <input type="text" value="email"/><br/>
-            Password: <input type="password"/><br/>
-            Firstname: <input type="text"/><br/>
-            Lastname: <input type="text"/><br/>
-            Phone: <input type="text"/>
+        <form action="#" th:action="@{/user/new}" th:object="${signupForm}" method="post">
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" th:field="*{userEmail}"/></td>
+                    <td th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">Email Error</td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" th:field="*{userPassword}" /></td>
+                    <td th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}">Password Error</td>
+                </tr>
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" th:field="*{userFirstname}" /></td>
+                    <td th:if="${#fields.hasErrors('userFirstname')}" th:errors="*{userFirstname}">Name Error</td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><input type="text" th:field="*{userLastname}"/></td>
+                    <td th:if="${#fields.hasErrors('userLastname')}" th:errors="*{userLastname}">Name Error</td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td><input type="text" th:field="*{userPhone}" /></td>
+                    <td th:if="${#fields.hasErrors('userPhone')}" th:errors="*{userPhone}">Phone Error</td>
+                </tr>
+                <tr>
+                    <td>University attending</td>
+                    <td><select th:field="*{universityId}">
+                        <option th:each="university : ${universities}"
+                                th:value="${university.id_university}"
+                                th:text="${university.name}" />
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Apply to be a Super Admin?</td>
+                    <td><input type="checkbox" th:field="*{applyForSAdmin}" /></td>
+                </tr>
+                <tr><td><button id="submit" type="submit">Submit Me</button></td></tr>
+            </table>
+
         </form>
     </div>
 </div>

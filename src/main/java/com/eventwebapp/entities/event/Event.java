@@ -11,8 +11,8 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 /**
  * Created by Xavier on 11/2/2015.
@@ -29,7 +29,7 @@ public class Event implements Serializable {
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Future(message = "Date needs to be in the future")
-    LocalDate date;
+    Date date;
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
@@ -58,7 +58,7 @@ public class Event implements Serializable {
     public Event() {
     }
 
-    public Event(LocalDate date, LocalTime time, Long location, String description,
+    public Event(Date date, LocalTime time, Long location, String description,
                  boolean admin_approved, boolean sadmin_approved,
                  Long type, Long host_rso, String name) {
         this.date = date;
@@ -80,11 +80,11 @@ public class Event implements Serializable {
         this.id_event = id_event;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
