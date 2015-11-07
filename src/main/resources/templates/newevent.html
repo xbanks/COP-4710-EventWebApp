@@ -48,9 +48,9 @@
             <tr>
                 <td>Host RSO:</td>
                 <td><select th:field="*{host_rso}">
-                    <option th:each="rso : ${rsos}"
-                            th:value="${rso.id_rso}"
-                            th:text="${rso.name}" />
+                    <option th:each="affiliated_rso : ${rsos}"
+                            th:value="${affiliated_rso.id_rso}"
+                            th:text="${affiliated_rso.name}" />
                 </select></td>
             </tr>
             <tr>

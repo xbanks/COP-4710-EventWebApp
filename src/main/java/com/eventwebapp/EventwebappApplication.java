@@ -4,8 +4,10 @@ import com.eventwebapp.entities.event.Event;
 import com.eventwebapp.entities.event.EventType;
 import com.eventwebapp.entities.other.Location;
 import com.eventwebapp.entities.rso.RSO;
+import com.eventwebapp.entities.rso.RsoMember;
 import com.eventwebapp.entities.rso.University;
 import com.eventwebapp.entities.users.Admin;
+import com.eventwebapp.entities.users.Student;
 import com.eventwebapp.entities.users.SuperAdmin;
 import com.eventwebapp.entities.users.User;
 import com.eventwebapp.repositories.*;
@@ -28,7 +30,8 @@ public class EventwebappApplication {
     CommandLineRunner runner (AdminRepo adminRepo, UserRepo userRepo, StudentRepo studentRepo,
                               LocationRepo locationRepo, SuperAdminRepo superAdminRepo,
                               UniversityRepo universityRepo, RSORepo rsoRepo,
-                              EventRepo eventRepo, EventTypeRepo eventTypeRepo){
+                              EventRepo eventRepo, EventTypeRepo eventTypeRepo,
+                              RsoMemberRepo rsoMemberRepo){
         return args -> {
 
             // New User, Super Admin,
@@ -41,13 +44,16 @@ public class EventwebappApplication {
             Long locId = locationRepo.save(new Location("UCF", 28.6024321F, -81.2022486F)).getId_location();
 
             // new university
-            universityRepo.save(new University("University of Central FL", "Orlandos one and only", locId, 55000L, "UCF"));
+            Long uniId = universityRepo.save(new University("University of Central FL", "Orlandos one and only", locId, 55000L, "UCF")).getId_university();
 
             // new rso
             Long rsoId = rsoRepo.save(new RSO("Kendo Club", 1L, 10, 1L)).getId_rso();
 
             // new admin that owns previous rso
             adminRepo.save(new Admin(userId, rsoId));
+            studentRepo.save(new Student(userId, uniId, "xavier@knights.ucf.edu"));
+
+            rsoMemberRepo.save(new RsoMember(rsoId, userId));
 
             Long publicID = eventTypeRepo.save(new EventType(1L, "public")).getId_event_type();
             Long privateID = eventTypeRepo.save(new EventType(2L, "private")).getId_event_type();

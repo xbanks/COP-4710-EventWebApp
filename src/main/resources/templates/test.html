@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Test</title>
+</head>
+<body>
+
+
+    <form action="#" th:action="@{/test}" method="post">
+        <table th:object="${object}">
+            <tr>
+                <td><input type="number" th:field="*{object[1]}"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="submit">Submit</input></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

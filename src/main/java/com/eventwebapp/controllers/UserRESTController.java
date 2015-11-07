@@ -37,6 +37,7 @@ public class UserRESTController {
         return "newuser";
     }
 
+    // THIS IS JUST FOR TESTING
     @RequestMapping(value = "/something", method = RequestMethod.GET)
     public String user(User user, Model model){
         if(user.equals(null)){
