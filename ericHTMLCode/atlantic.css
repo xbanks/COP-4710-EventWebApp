@@ -1,0 +1,255 @@
+body {
+	background-color: #4f6D93;
+	background-image: linear-gradient(to bottom, #66FF66, #000000);
+	background-repeat: no-repeat;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #666666;
+}
+
+header {
+	background-color: #993300;
+/*	background-image: url(images/); */
+	background-repeat: no-repeat;
+	background-position: right;
+	color: #FFFFFF;
+	height: 60px;
+	padding-top: 15px;
+	text-align: center;
+}
+
+nav {
+	padding: 20px;
+	font-weight: bold;
+	float: left;
+	width: 80px;
+}
+
+nav ul {
+	list-style-type: none;
+}
+
+nav ul > li a {
+	text-decoration: none;
+	margin: 0;
+	padding-left: 0;
+	font-size: 1.2em;
+}
+nav ul > li a:link {
+	text-decoration: none;
+	margin: 0;
+	padding-left: 0;
+	font-size: 1.2em;
+	color: #000033;
+}
+nav ul > li a:visited {
+	text-decoration: none;
+	padding-left: 0;
+	font-size: 1.2em;
+	color: #344873;
+}
+nav ul > li a:hover {
+	text-decoration: none;
+	margin: 0;
+	padding-left: 0;
+	font-size: 1.2em;
+	color: #FFFFFF
+}
+
+main {
+	background-color: #FFFFFF;
+	margin-left: 190px;
+	padding: 1px 20px 20px 30px;
+}
+
+main > ul {
+	list-style-image: url(images/marker.gif);
+}
+
+h1 {
+	margin-top: 0;
+	font-family: Georgia, Times New Roman, serif;
+}
+
+h2 {
+	color: #3399CC;
+	text-shadow: 1px 1px #CCCCCC;
+	font-family: Georgia, Times New Roman, serif;
+}
+
+h3 {
+	font-family: Georgia, Times New Roman, serif;
+	color: #000033;
+}
+
+dt {
+	color: #000033;
+	font-weight: bold;
+	margin: 10px 0 10px 0;
+}
+
+footer {
+	background-color: #FFFFFF;
+	font-size: 75%;
+	font-style: italic;
+	text-align: center;
+	font-family: Georgia, Times New Roman, serif;
+	padding: 20px 0px 0px 0px;
+}
+
+#contact {
+	font-size: 90%;
+}
+
+#wrapper {
+	box-shadow: 3px 3px #333333;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	min-width: 960px;
+	max-width: 2048px;
+	background-color: #90C7E3;
+}
+
+.former {
+	list-style-type: none;
+}
+
+label {
+    width:120px;
+    clear:left;
+    text-align:right;
+    padding-right:15px;
+	float: left;
+}
+
+input {
+    float:left;
+	margin-bottom: 2px;
+}
+
+textarea {
+    float:left;
+	margin-bottom: 2px;
+}
+
+#main-image {
+	height: 300px;
+	background-image: url(images/reflectionPond.jpg);
+	background-size: 70% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: black;
+	margin-left: 190px;
+}
+
+#events-image {
+	height: 300px;
+	background-image: url(images/stadium.jpg);
+	background-size: 70% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: black;
+	margin-left: 190px;
+}
+
+#rsos-image {
+	height: 300px;
+	background-image: url(images/studentGroup.jpg);
+	background-size: 70% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: black;
+	margin-left: 190px;
+}
+
+@media only screen and (max-width: 64em) {
+	body {
+		margin: 0; 
+		background-color: #FFFFFF
+	}
+	
+	wrapper {
+		box-shadow: none;
+		width: auto;
+		margin-left: auto;
+		min-width: 0;
+	}
+	
+	main {
+		margin-left: 0;
+	}
+	
+	nav {
+		float: none;
+		width: auto; 
+		text-align: center; 
+		padding: 0.5em;
+	}
+	
+	nav ul > li {
+		display: inline;
+		padding: 0.25em 0.75em 0.25em 0.75em;
+	}
+	
+	#main-image {
+		height: 300px;
+		margin-left: 0;
+	}
+
+	#events-image {
+		height: 300px;
+		margin-left: 0;
+	}
+
+	#rsos-image {
+		height: 300px;
+		margin-left: 0;
+	}
+}
+
+@media only screen and (max-width: 37.5em) {
+	header {
+		padding: 1em;
+	}
+	
+	main {
+		padding: 0.1em 1em 0.1em 1em;
+		font-size: 90%;
+	}
+	
+	#wrapper {
+		min-width: 37.5em;
+	}
+	
+	h1 {
+		font-size: 1.5em;
+	}
+	
+	nav ul > li {
+		display: block;
+		margin: 0;
+		border-bottom: 2px solid #330000;
+	}
+	nav ul > li a{
+		display: block;
+	}
+	
+	#main-image {
+		height: 0;
+		background-image: none;
+	}
+
+	#events-image {
+		height: 0;
+		background-image: none;
+	}
+
+	#rsos-image {
+		height: 0;
+		background-image: none;
+	}
+}
+
+
+
+
