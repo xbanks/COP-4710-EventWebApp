@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title> RSO's </title>
+    <link rel="stylesheet" href="atlantic.css" type="text/css" />
+    <style>
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .menu {
+        margin: 0;
+        padding: 0;
+        display: inline;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <h1> University Events </h1>
+        </header>
+        <nav>
+            <ul class="menu">
+                <li><a href="home.html"> Home </a> </li>
+                <li><a href="events.html"> Events </a> </li>
+                <li><a href="rsos.html"> RSO's </a> </li>
+                <li><a href="users.html"> Users </a> </li>
+            </ul>
+        </nav>
+        <div id="rsos-image"></div>
+        <main>
+            <fieldset>
+                <div>
+                    <form action="#" th:action="@{/rso/create}" th:object="${rsoForm}" method="post">
+                        <table>
+                            <tr>
+                                <td>Title:</td>
+                                <td>
+                                    <input type="text" th:field="*{name}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td>
+                                    <input type="text" th:field="*{description}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</td>
+                            </tr>
+                            <tr>
+                                <td>Type:</td>
+                                <td>
+                                    <select th:field="*{type}">
+                                        <option th:each="type : ${types}" th:value="${type.id_rso_type}" th:text="${type.name}" />
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>University:</td>
+                                <td>
+                                    <select th:field="*{university}">
+                                        <option th:each="u : ${universities}" th:value="${u.id_university}" th:text="${u.name}" />
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Admin Email</td>
+                                <td>
+                                    <input type="email" th:field="*{adminEmail}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('adminEmail')}" th:errors="*{adminEmail}">Email Error</td>
+                            </tr>
+                            <tr>
+                                <td>Member 1 Email</td>
+                                <td>
+                                    <input type="email" th:field="*{userEmail1}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('userEmail1')}" th:errors="*{userEmail1}">Email Error</td>
+                            </tr>
+                            <tr>
+                                <td>Member 2 Email</td>
+                                <td>
+                                    <input type="email" th:field="*{userEmail2}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('userEmail2')}" th:errors="*{userEmail2}">Email Error</td>
+                            </tr>
+                            <tr>
+                                <td>Member 3 Email</td>
+                                <td>
+                                    <input type="email" th:field="*{userEmail3}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('userEmail3')}" th:errors="*{userEmail3}">Email Error</td>
+                            </tr>
+                            <tr>
+                                <td>Member 4 Email</td>
+                                <td>
+                                    <input type="email" th:field="*{userEmail4}" required="required" />
+                                </td>
+                                <td th:if="${#fields.hasErrors('userEmail4')}" th:errors="*{userEmail4}">Email Error</td>
+                            </tr>
+                            <tr>
+                            	<td>Number of Members</td>
+                            	<td><input type="number" value="5"	th:field="*{num_members}" required="required"/></td>
+                            	<td th:if="${#fields.hasErrors('num_members')}" th:errors="*{num_members}">Number Error</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="submit" value="submit">Submit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </fieldset>
+            <footer>
+                <p>
+                    Copyright &copy; 2015 Group 10
+                    <br />
+                </p>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

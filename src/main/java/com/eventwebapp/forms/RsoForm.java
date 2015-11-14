@@ -17,6 +17,10 @@ public class RsoForm extends RSO{
 
     @NotEmpty
     @Email
+    private String adminEmail;
+
+    @NotEmpty
+    @Email
     private String userEmail1;
 
     @NotEmpty
@@ -31,40 +35,39 @@ public class RsoForm extends RSO{
     @Email
     private String userEmail4;
 
-    @NotEmpty
-    @Email
-    private String userEmail5;
-
-    @NotNull
-    private Long rsoAdminId;
-
     public RsoForm() {
     }
 
-    public RsoForm(String name, Long type, Integer num_members, Long university,
+    public RsoForm(String name, Long type, String description, Long num_members, Long university,
                    String userEmail1, String userEmail2, String userEmail3,
-                   String userEmail4, String userEmail5, Long rsoAdminId) {
-        super(name, type, num_members, university);
-        this.userEmail1 = userEmail1;
-        this.userEmail2 = userEmail2;
-        this.userEmail3 = userEmail3;
-        this.userEmail4 = userEmail4;
-        this.userEmail5 = userEmail5;
-        this.rsoAdminId = rsoAdminId;
+                   String userEmail4, String adminEmail) {
+        super(name, type, description, num_members, university);
+        this.userEmail1 = userEmail1.toLowerCase();
+        this.userEmail2 = userEmail2.toLowerCase();
+        this.userEmail3 = userEmail3.toLowerCase();
+        this.userEmail4 = userEmail4.toLowerCase();
+        this.adminEmail = adminEmail.toLowerCase();
     }
 
+
+    // TODO: 11/13/15 make sure the emails dont actually fully match though
     // Make sure all five emails have matching domains.
     public boolean matchingDomains(){
-        return this.userEmail1.split("@")[1] == this.userEmail2.split("@")[1] &&
-                this.userEmail2.split("@")[1] == this.userEmail3.split("@")[1] &&
-                this.userEmail3.split("@")[1] == this.userEmail4.split("@")[1] &&
-                this.userEmail4.split("@")[1] == this.userEmail5.split("@")[1];
+        boolean matching = this.userEmail1.split("@")[1].equals(this.userEmail2.split("@")[1]) &&
+                this.userEmail2.split("@")[1].equals(this.userEmail3.split("@")[1]) &&
+                this.userEmail3.split("@")[1].equals(this.userEmail4.split("@")[1]) &&
+                this.userEmail4.split("@")[1].equals(this.adminEmail.split("@")[1]);
 
+        System.out.println(this.foundingMembers().toString());
+
+        System.out.println("Emails Match: " + matching);
+
+        return matching;
     }
 
     public RSO createRSO(){
         if(this.matchingDomains()){
-            RSO rso = new RSO(this.getName(), this.getType(), this.getNum_members(), this.getUniversity());
+            RSO rso = new RSO(this.getName(), this.getType(), this.getDescription(), this.getNum_members(), this.getUniversity());
             return rso;
         }
         return null;
@@ -76,7 +79,7 @@ public class RsoForm extends RSO{
         list.add(this.getUserEmail2());
         list.add(this.getUserEmail3());
         list.add(this.getUserEmail4());
-        list.add(this.getUserEmail5());
+        list.add(this.getAdminEmail());
 
         return list;
     }
@@ -113,19 +116,11 @@ public class RsoForm extends RSO{
         this.userEmail4 = userEmail4;
     }
 
-    public String getUserEmail5() {
-        return userEmail5;
+    public String getAdminEmail() {
+        return adminEmail;
     }
 
-    public void setUserEmail5(String userEmail5) {
-        this.userEmail5 = userEmail5;
-    }
-
-    public Long getRsoAdminId() {
-        return rsoAdminId;
-    }
-
-    public void setRsoAdminId(Long rsoAdminId) {
-        this.rsoAdminId = rsoAdminId;
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
     }
 }

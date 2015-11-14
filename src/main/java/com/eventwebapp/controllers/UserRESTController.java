@@ -4,6 +4,8 @@ import com.eventwebapp.entities.users.User;
 import com.eventwebapp.forms.SignupForm;
 import com.eventwebapp.repositories.UniversityRepo;
 import com.eventwebapp.repositories.UserRepo;
+import com.eventwebapp.security.CustomUserDetails;
+import com.eventwebapp.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * Created by Xavier on 11/3/2015.
  */
 
 @Controller
-@RequestMapping("/user")
 public class UserRESTController {
     @Autowired
     UserRepo userRepo;
@@ -29,28 +31,17 @@ public class UserRESTController {
     @Autowired
     UniversityRepo universityRepo;
 
-    // Serves the model form
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String NewUser(Model model, SignupForm signupForm){
+    @Autowired
+    CustomUserDetailsService userDetailsService;
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model, SignupForm signupForm){
         model.addAttribute("universities", universityRepo.findAll());
-//        model.addAttribute("form", form);
-        return "newuser";
+        return "register";
     }
 
-    // THIS IS JUST FOR TESTING
-    @RequestMapping(value = "/something", method = RequestMethod.GET)
-    public String user(User user, Model model){
-        if(user.equals(null)){
-            return "newuser";
-        }
-        System.out.println(user);
-        model.addAttribute("message", String.format("Hello from: user %s", user));
-        return "placeholder";
-    }
-
-    // This would be used from a form
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createNewUser(Model model, @Valid SignupForm signupForm, BindingResult bindingResult){
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String createUser(Model model, @Valid SignupForm signupForm, BindingResult bindingResult){
 
         // Shows if there were any validation errors with the form
         boolean errorExists = false;
@@ -58,13 +49,13 @@ public class UserRESTController {
             System.out.println("Form Screwed");
             errorExists = true;
         }
-        if(userRepo.findByEmail(signupForm.getUserEmail()) != null){
+        if(userRepo.findByEmail(signupForm.getEmail()) != null){
             bindingResult.rejectValue("userEmail", "error.signupForm", "This email is already registered");
             System.out.println("Email taken");
         }
         if(errorExists){
             model.addAttribute("universities", universityRepo.findAll());
-            return "newuser";
+            return "register";
         }
 
         // TODO: Use this to login after saving
@@ -74,7 +65,7 @@ public class UserRESTController {
 
         // TODO: Maybe send to the student creation page?
         model.addAttribute("message", String.format("Successfully created user: %s", u));
-        return "placeholder";
+        return "test/placeholder";
     }
 
     // Used for post request using JSON
@@ -87,5 +78,16 @@ public class UserRESTController {
         User new_user = userRepo.save(user);
 
         return new ResponseEntity<User>(new_user, HttpStatus.OK);
+    }
+
+
+    // THIS IS JUST FOR TESTING
+    @RequestMapping(value = "/something", method = RequestMethod.GET)
+    public String user(Model model, Principal principal){
+        if(principal != null) {
+            CustomUserDetails customUserDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(principal.getName());
+            model.addAttribute("message", String.format("Hello from: user %s", customUserDetails));
+        }
+        return "test/placeholder";
     }
 }

@@ -2,11 +2,9 @@ package com.eventwebapp.entities.other;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * Created by Xavier on 11/2/2015.

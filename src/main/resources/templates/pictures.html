@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8" />
+    <title>Picture testing</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../picture.js" th:src="@{~/js/picture.js}" type="text/javascript"></script>
+    <script type="text/javascript"></script>
+</head>
+<body>
+<!-- Upload file form -->
+    <form id="upload-file-form">
+        <label for="upload-file-input">Upload your file:</label>
+        <input id="upload-file-input" type="file" name="picture" accept="*" />
+    </form>
+</body>
+</html>

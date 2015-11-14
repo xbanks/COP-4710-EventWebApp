@@ -12,23 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Service
-public class SignupForm {
-
-    @NotEmpty
-    private String userFirstname;
-
-    @NotEmpty
-    private String userLastname;
-
-    @NotEmpty
-    private String userPassword;
-
-    @NotEmpty
-    @Email
-    private String userEmail;
-
-//    @Length(min = 10, max = 13)
-    private String userPhone;
+public class SignupForm extends User{
 
     @NotNull
     private Long universityId;
@@ -40,68 +24,18 @@ public class SignupForm {
         if(this == null)
             return null;
 
-        User user = new User();
-        user.setEmail(this.userEmail);
-        user.setFirstname(this.userFirstname);
-        user.setLastname(this.userLastname);
-        user.setPassword(this.userPassword);
-        user.setPhone(this.userPhone);
-
+        User user = (User) this;
         return user;
     }
 
     public SignupForm() {
     }
 
-    public SignupForm(String userFirstname, String userLastname, String userPassword,
-                      String userEmail, String userPhone, Long universityId, Boolean applyForSAdmin) {
-        this.userFirstname = userFirstname;
-        this.userLastname = userLastname;
-        this.userPassword = userPassword;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
+    public SignupForm(String firstname, String lastname, String password, String email,
+                      String phone, Long universityId, Boolean applyForSAdmin) {
+        super(firstname, lastname, password, email, phone);
         this.universityId = universityId;
         this.applyForSAdmin = applyForSAdmin;
-    }
-
-    public String getUserFirstname() {
-        return userFirstname;
-    }
-
-    public void setUserFirstname(String userFirstname) {
-        this.userFirstname = userFirstname;
-    }
-
-    public String getUserLastname() {
-        return userLastname;
-    }
-
-    public void setUserLastname(String userLastname) {
-        this.userLastname = userLastname;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
     }
 
     public Long getUniversityId() {

@@ -1,0 +1,33 @@
+
+EVENTS
+	List of weekly events
+	List of all events
+	List of events by RSO
+	Create new event
+	
+	Event (kname, category, description, time, date, locations, contact phone, email)
+		public - everyone, private - university only, RSO - members only
+		social, fundraising, tech talks, ...
+		comments
+			add, remove, edit comments
+		rating
+		social media link
+RSO'S
+	List of all RSO's
+	Create new RSO (5 students or more)
+		one has to be admin
+		all 5 same email domains
+USERS
+	Create new user (superadmin, admin, student)
+		
+	superadmin
+		creates university profile(name, location, description, numStudents, pictures)
+	admin (one university, one or more RSO)
+		owns an RSO, hosts events
+		creates events
+	student (create new RSO or join one)
+		look up info about various events
+		look at events by location
+	
+		
+	

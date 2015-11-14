@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/css/w3.css" />
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
+    <style type="text/css">
+        .center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        }
+        body {
+        background-image: url("/images/mountains.jpg");
+        background-color: #cccccc;
+        }
+
+        h1{
+        font-family: 'Arimo', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<header class="w3-container w3-blue">University Events</header>
+<div class="w3-container center">
+    <form class="w3-form w3-card-8 w3-white" th:action="@{/user/new}" th:object="${signupForm}" method="post">
+        <h1 class="w3-center">Sign Up</h1>
+        <div class="w3-input-group">
+            <label for="email">Email</label>
+            <input id="email" class="w3-input" name="email" type="email" th:field="*{email}" />
+        </div>
+        <div class="w3-input-group">
+            <label for="passwd">Password</label>
+            <input id="passwd" class="w3-input" name="passwd" type="password"/>
+        </div>
+        <div class="w3-input-group">
+            <label for="passwd2">Re-type Password</label>
+            <input id="passwd2" class="w3-input" name="passwd" type="password"/>
+        </div>
+        <div class="w3-input-group">
+            <label for="firstname">First Name</label>
+            <input id="firstname" class="w3-input" type="text" placeholder="firstname"/>
+        </div>
+        <div class="w3-input-group">
+            <label for="lastname">Last Name</label>
+            <input id="lastname" class="w3-input" type="text" placeholder="lastname"/>
+        </div>
+        <div class="w3-input-group">
+            <label for="university">University</label>
+            <select id="university" class="w3-input" th:field="*{universityId}">
+                <option th:each="university : ${universities}"
+                        th:value="${university.id_university}"
+                        th:text="${university.name}" />
+            </select>
+        </div>
+        <input class="w3-btn" type="submit" value="Register"/>
+    </form>
+</div>
+</body>
+</html>

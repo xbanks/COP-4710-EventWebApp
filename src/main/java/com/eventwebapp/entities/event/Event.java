@@ -11,7 +11,9 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -61,7 +63,11 @@ public class Event implements Serializable {
     public Event(Date date, LocalTime time, Long location, String description,
                  boolean admin_approved, boolean sadmin_approved,
                  Long type, Long host_rso, String name) {
-        this.date = date;
+        System.out.println("Constructor: " + date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear()+1900, date.getMonth(), date.getDate(), 0, 0, 0);
+        System.out.println("Csons: " + calendar.getTime().toString());
+        this.date = calendar.getTime();
         this.time = time;
         this.location = location;
         this.description = description;
@@ -85,7 +91,12 @@ public class Event implements Serializable {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        System.out.println("Set Date: " + date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear()+1900, date.getMonth(), date.getDate(), 0, 0, 0);
+
+        System.out.println("Set DateTo: " + calendar.getTime().toString());
+        this.date = calendar.getTime();
     }
 
     public LocalTime getTime() {

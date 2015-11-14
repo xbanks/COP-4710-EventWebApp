@@ -17,4 +17,9 @@ public class DashboardRESTController {
     public String dashboard(Model model){
         return "dashboard";
     }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String dashboardPOST(Model model){
+        return "dashboard";
+    }
 }

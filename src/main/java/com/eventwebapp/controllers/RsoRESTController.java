@@ -40,14 +40,55 @@ public class RsoRESTController {
     @Autowired
     RsoMemberRepo rsoMemberRepo;
 
+    // GET the list of all rsos on a page
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String listRSOs(Model model){
+        // TODO: attach the list of rsos to the model
+        model.addAttribute("rsos", rsoRepo.findAll());
+        // TODO: send to rso list page
+        return "main/rsos";
+    }
+
     // GET the rso creation page
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String newRSO(Model model, RsoForm rsoForm){
         // TODO: attach the rsotypes and maybe the university it's affiliated with
         model.addAttribute("types", rsoTypeRepo.findAll());
         model.addAttribute("universities", universityRepo.findAll());
 
-        return "placeholder";
+        return "main/rsoForm";
+    }
+
+    // POST to the new rso page
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String createNewRSO(Model model, @Valid RsoForm rsoForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("types", rsoTypeRepo.findAll());
+            model.addAttribute("universities", universityRepo.findAll());
+
+            System.out.println(bindingResult.getAllErrors().toString());
+
+            // TODO: send the user back to the rso creation page
+            return "main/rsoForm";
+        }
+
+        // TODO: 11/13/15 check to make sure none of the emails are repeated
+
+        RSO rso = rsoForm.createRSO();
+        if(rso == null){
+            System.out.println("rso is null");
+            // either add error to binding result or as a message to be displayed?
+            model.addAttribute("errorMessage", "Something went wrong, we could not create the RSO, you may try again");
+
+            // Send user back to /new
+            return "main/rsoForm";
+        }
+
+        rsoRepo.save(rso);
+
+
+        // TODO: redirect to the new rso page.
+        return String.format("redirect:/rso/", rso.getId_rso());
     }
 
     // GET a single rso page
@@ -56,46 +97,15 @@ public class RsoRESTController {
         // attach the rso to the model
         if(!rsoRepo.exists(id)){
             // TODO: Send the user to a DNE page
-            return "placeholder";
+            return "test/placeholder";
         }
 
         model.addAttribute("rso", rsoRepo.findOne(id));
         // TODO: send user to rso page
-        return "placeholder";
+        return "test/placeholder";
     }
 
-    // POST to the new rso page
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createNewRSO(Model model, @Valid RsoForm rsoForm, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            // TODO: send the user back to the rso creation page
-            return "placeholder";
-        }
 
-        RSO rso = rsoForm.createRSO();
-        if(rso == null){
-            // either add error to binding result or as a message to be displayed?
-            model.addAttribute("errorMessage", "Something went wrong, we could not create the RSO, you may try again");
-
-            // Send user back to /new
-            return "placeholder";
-        }
-
-        rsoRepo.save(rso);
-
-
-        // TODO: redirect to the new rso page.
-        return String.format("redirect:/placeholder/", rso.getId_rso());
-    }
-
-    // GET the list of all rsos on a page
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String listRSOs(Model model){
-        // TODO: attach the list of rsos to the model
-
-        // TODO: send to rso list page
-        return "placeholder";
-    }
 
     private boolean doesUserExist(@Email String email){
         return userRepo.findByEmail(email) != null;
@@ -103,13 +113,6 @@ public class RsoRESTController {
     }
 
     private boolean addRSOMembersByEmail(List<String> members, Long rsoId){
-//        for (String s : members) {
-//            Long userId = userRepo.findByEmail(s).getId_user();
-//            if(rsoMemberRepo.findByMemberAndRso(userId, rsoId) == null){
-//                rsoMemberRepo.save(new RsoMember(rsoId, userId));
-//            }
-//        }
-
         members.stream()
                 .map(m -> userRepo.findByEmail(m).getId_user())
                 .filter(id -> rsoMemberRepo.findByMemberAndRso(id, rsoId) == null)

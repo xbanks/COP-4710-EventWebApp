@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="utf-8"/>
 	<title> Home </title>
@@ -25,10 +25,10 @@
 		
 		<nav>
 			<ul class="menu">
-				<li><a href="adminHome.htm"> Home </a> </li>
-				<li><a href="adminEvents.htm"> Events </a> </li>
-				<li><a href="adminUsers.htm"> Users </a> </li>
-                <li><a href="createUni.htm"> Create University </a> </li>
+				<li><a href="adminHome.html"> Home </a> </li>
+				<li><a href="adminEvents.html"> Events </a> </li>
+				<li><a href="adminUsers.html"> Users </a> </li>
+                <li><a href="createUni.html"> Create University </a> </li>
 			</ul>
 		</nav>
 		
@@ -41,68 +41,52 @@
 			})
     	</script>
         
-        <table border="1">
-    <tr>
-        <td>Cell 1</td>
-        <td>Cell 2</td>
-        <td>Cell 3</td>
-        <td>Cell 4</td>
-        <td><a href="#" id="show_1">Show Extra</a></td>
-    </tr>
-    <tr>
-        <td colspan="5">
-            <div id="extra_1" style="display: none;">
-                <br>hidden row
-                <br>hidden row
-                <br>hidden row
-            </div>
-        </td>
-    </tr>
-</table>
+        <table>
+        <tr>
+            <td>Cell 1</td>
+            <td>Cell 2</td>
+            <td>Cell 3</td>
+            <td>Cell 4</td>
+            <td><a href="#" id="show_1">Show Extra</a></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <div id="extra_1" style="display: none;">
+                    <br />hidden row
+                    <br />hidden row
+                    <br />hidden row
+                </div>
+            </td>
+        </tr>
+    </table>
 
         
 	<h2> Events Pending Approval </h2>
-    
-    <table border = "1" style = "width:100%">
+        <table border = "1" style = "width:100%">
             <tr class="header" bgcolor="#90C7E3">
-            	<th>Event Name</th>
+                <th>Event Name</th>
                 <th>Type</th>
                 <th>Location</th>
                 <th>Approve</th>
             </tr>
-            <tr>
-            	<td>Event 1</td>
-                <td>E1 type</td>
-                <td>E1 location</td>
-                <td>Approve?</td>
-      </tr>
-            <tr>
-            	<td colspan="5">Description</td>
-            </tr>
-            <tr>
-            	<td>Event 2</td>
-                <td>E2 type</td>
-                <td>E2 location</td>
-                <td>Approve?</td>
-            </tr>
-            <tr>
-            	<td colspan="5">Description</td>
-            </tr>
-            <tr>
-            	<td>Event 3</td>
-                <td>E3 type</td>
-                <td>E3 location</td>
-                <td>Approve?</td>
-            </tr>
-            <tr>
-            	<td colspan="5">Description</td>
-            </tr>
-          </table>
-          <center><a href="adminEvents.htm"> View More... </a></center>
+            <div th:each="e : ${pendingEvents}">
+                <tr>
+                    <td><b th:text="${e.name}">Event 1</b></td>
+                    <td><b th:text="${e.type}">E1 type</b></td>
+                    <td><b th:text="${e.location}">E1 location</b></td>
+                    <td><input type="button" value="Approve" id="${e.id_event}"/></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><p th:text="${e.description}">Description</p></td>
+                </tr>
+            </div>
+        </table>
+
+      <center><a href="adminEvents.html"> View More... </a></center>
             
-            <h2> RSOs Pending Approval </h2>
+    <h2> RSOs Pending Approval </h2>
     
-    <table border = "1" style = "width:100%">
+    <table border="1" style = "width:100%">
             <tr class="header" bgcolor="#90C7E3">
             	<th>RSO Name</th>
                 <th>Type</th>
@@ -140,7 +124,7 @@
 			
 			<footer>
 			<p> 
-			Copyright &copy; 2015 Group 10<br>
+			Copyright &copy; 2015 Group 10<br />
 			</p>
 			</footer>
 		</main>

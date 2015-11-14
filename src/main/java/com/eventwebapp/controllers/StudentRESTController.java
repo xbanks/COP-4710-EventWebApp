@@ -28,13 +28,13 @@ public class StudentRESTController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newStudent(Model model){
-        return "placeholder";
+        return "test/placeholder";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String createNewStudent(Model model, @Valid Student student, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "placeholder";
+            return "test/placeholder";
         }
 
         // If there is no user in the database with the given id_student value
@@ -42,13 +42,13 @@ public class StudentRESTController {
         if(!userRepo.exists(student.getId_student())){
 
             // TODO: Send the user back to the login/signup page
-            return "placeholder";
+            return "test/placeholder";
         }
 
         studentRepo.save(student);
 
         // TODO: Maybe send to a dashboard view?
-        return "placeholder";
+        return "test/placeholder";
     }
 
 

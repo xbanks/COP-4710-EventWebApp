@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8"/>
+	<title> Events </title>
+	<link rel="stylesheet" href="atlantic.css" type="text/css" />
+	<style>
+		h1 {
+			margin: 0;
+			padding: 0;
+		}
+		.menu {
+			margin: 0;
+			padding: 0;
+			display:inline; 
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<header>
+		<h1> University Events </h1>
+		</header>
+		
+		<nav>
+			<ul class="menu">
+				<li><a href="adminHome.html"> Home </a> </li>
+                <li><a href="adminEvents.html"> Events </a> </li>
+				<li><a href="adminUsers.html"> Users </a> </li>
+                <li><a href="createUni.html"> Create University </a> </li>
+			</ul>
+		</nav>
+	<main>
+	<h2> Users </h2>
+    
+    <table border = "1" style = "width:100%">
+		<tr class="header" bgcolor="#90C7E3">
+			<th>Username</th>
+            <th>Roles</th>
+			<th>Email</th>
+			<th>Enabled</th>
+		</tr>
+		<div th:each="u : ${users}">
+			<tr>
+				<td><b th:text="${u.username}">Username 1</b></td>
+                <td><b th:text="${u.userRoles}">Roles</b></td>
+				<td><b th:text="${u.email}">U1 email</b></td>
+				<td><b th:text="${u.enabled}">Online/offline</b></td>
+			</tr>
+		</div>
+	</table>
+			
+			<footer>
+			<p> 
+			Copyright &copy; 2015 Group 10<br />
+			</p>
+			</footer>
+		</main>
+	</div>
+</body>
+</html>

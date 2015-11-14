@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8"/>
+	<title> Events </title>
+	<link rel="stylesheet" href="atlantic.css" type="text/css" />
+	<style>
+		h1 {
+			margin: 0;
+			padding: 0;
+		}
+		.menu {
+			margin: 0;
+			padding: 0;
+			display:inline; 
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<header>
+		<h1> University Events </h1>
+		</header>
+		
+		<nav>
+			<ul class="menu">
+				<li><a href="home.html"> Home </a> </li>
+				<li><a href="events.html"> Events </a> </li>
+				<li><a href="rsos.html"> RSO's </a> </li>
+				<li><a href="users.html"> Users </a> </li>
+			</ul>
+		</nav>
+		
+		<div id="events-image"></div>
+		
+		<main>
+				<h2> Create a New Event </h2>
+				<p> Required fields are marked with an asterisk *</p>
+				<fieldset>
+					<div>
+						<form action="#" th:action="@{/events/create}" th:object="${event}" method="post">
+							<table>
+								<tr>
+									<td>Title:</td>
+									<td><input type="text" th:field="*{name}" required="required"/></td>
+									<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+								</tr>
+								<tr>
+									<td>Description:</td>
+									<td><input type="text" th:field="*{description}" required="required"/></td>
+									<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</td>
+								</tr>
+								<tr>
+									<td>Location:</td>
+									<td><select th:field="*{location}">
+										<option th:each="loc : ${locations}"
+												th:value="${loc.id_location}"
+												th:text="${loc.name}" />
+									</select></td>
+								</tr>
+								<tr>
+									<td>Type:</td>
+									<td><select th:field="*{type}">
+										<option th:each="type : ${eventTypes}"
+												th:value="${type.id_event_type}"
+												th:text="${type.name}" />
+									</select></td>
+								</tr>
+								<tr>
+									<td>Date:</td>
+									<td><input type="date" th:field="*{date}" required="required"/></td>
+									<td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</td>
+								</tr>
+								<tr>
+									<td>Time:</td>
+									<td><input type="time" th:field="*{time}" required="required"/></td>
+								</tr>
+								<tr>
+									<td>Host RSO:</td>
+									<td><select th:field="*{host_rso}">
+										<option th:each="affiliated_rso : ${rsos}"
+												th:value="${affiliated_rso.id_rso}"
+												th:text="${affiliated_rso.name}" />
+									</select></td>
+								</tr>
+								<tr>
+									<td><button type="submit" value="submit" >Submit</button></td>
+								</tr>
+							</table>
+							<input type="hidden" th:field="*{admin_approved}" value="false" />
+							<input type="hidden" th:field="*{sadmin_approved}" value="false" />
+						</form>
+					</div>
+				</fieldset>
+			<footer>
+			<p> 
+			Copyright &copy; 2015 Group 10<br />
+			</p>
+			</footer>
+		</main>
+	</div>
+</body>
+</html>

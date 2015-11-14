@@ -19,31 +19,47 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue
-    Long id_user;
+    private Long id_user;
 
     @NotEmpty
-    String firstname;
+    private String username;
 
     @NotEmpty
-    String lastname;
+    private String firstname;
 
     @NotEmpty
-    String password;
+    private String lastname;
 
-    @NotEmpty @Email
-    String email;
+    @NotEmpty
+    private String password;
 
-    String phone;
+    @NotEmpty
+    @Email
+    private String email;
+
+    private String phone;
+
+    private int enabled;
 
     public User() {
     }
 
     public User(String firstname, String lastname, String password, String email, String phone) {
+        this.username = email.toLowerCase();
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
-        this.email = email;
+        this.email = email.toLowerCase();
         this.phone = phone;
+    }
+
+    public User(User user){
+        this.username = user.getEmail().toLowerCase();
+        this.firstname = user.getFirstname();
+        this.lastname = user.getLastname();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
     }
 
     public Long getId_user() {
@@ -78,7 +94,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -105,5 +120,21 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username.toLowerCase();
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8" />
+    <title>Create new Event</title>
+</head>
+<body>
+<h1>New Event</h1>
+<div>
+    <form action="#" th:action="@{/events/new}" th:object="${event}" method="post">
+        Name : <input type="text" th:field="*{name}"/><b th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Err</b> <br />
+        Description : <input type="text" th:field="*{description}"/><br />
+        Location : <select th:field="*{location}">
+                    <option th:each="loc : ${locations}"
+                            th:value="${loc.id_location}"
+                            th:text="${loc.name}" />
+                </select><br />
+        Type : <select th:field="*{type}">
+                <option th:each="type : ${eventTypes}"
+                        th:value="${type.id_event_type}"
+                        th:text="${type.name}" />
+                </select><br />
+        Date : <input type="date" th:field="*{date}" /><br />
+        Time : <input type="time" th:field="*{time}" /><br />
+        Host RSO : <select th:field="*{host_rso}">
+                        <option th:each="rso : ${rsos}"
+                                th:value="${rso.id_rso}"
+                                th:text="${rso.name}" />
+                    </select>
+        <input type="hidden" th:field="*{admin_approved}" value="false" />
+        <input type="hidden" th:field="*{sadmin_approved}" value="false" />
+
+        <button type="submit" value="submit" >Submit</button>
+    </form>
+</div>
+</body>
+</html>

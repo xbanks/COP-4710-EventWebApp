@@ -1,11 +1,12 @@
 package com.eventwebapp.controllers;
 
 import com.eventwebapp.entities.event.Event;
+import com.eventwebapp.entities.event.EventsOnDay;
 import com.eventwebapp.repositories.EventRepo;
 import com.eventwebapp.repositories.EventTypeRepo;
 import com.eventwebapp.repositories.LocationRepo;
 import com.eventwebapp.repositories.RSORepo;
-import com.eventwebapp.validators.EventValidator;
+import com.eventwebapp.util.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Xavier on 11/2/2015.
@@ -38,34 +44,54 @@ public class EventRESTController {
     @Autowired
     RSORepo rsoRepo;
 
-    @Autowired
-    EventValidator eventValidator;
-
     @RequestMapping("")
     public String events (Model model){
         model.addAttribute("events", eventRepo.findAll(new PageRequest(0, 5, Sort.Direction.DESC, "date")));
-
-        return "events";
+        return "main/events";
     }
 
     @RequestMapping("/{id}")
     public String eventByID(Model model, @PathVariable("id") Long id){
         model.addAttribute("events", eventRepo.findOne(id));
 
-        return "events";
+        return "test/events";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newEventPage(Model model){
+    @RequestMapping("/thisweek")
+    public String eventsThisWeek(Model model){
+
+        List<EventsOnDay> eventsWeek = new ArrayList<>();
+        eventRepo.findAll().stream().forEach(System.out::println);
+        for (int i = 0; i < 7; i++) {
+            Date date = DateConverter.convert(LocalDate.now().plusDays(i));
+            List<Event> events =
+                    eventRepo.findAll().stream()
+                             .filter(event -> DateConverter.compare(event.getDate(), date))
+                             .collect(Collectors.toList());
+            if(!events.isEmpty())
+            {
+                eventsWeek.add(new EventsOnDay(events, date));
+            }
+        }
+
+        model.addAttribute("week", eventsWeek);
+
+        return "main/weeklyView";
+    }
+
+
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createEventPage(Model model){
         model.addAttribute("locations", locationRepo.findAll());
         model.addAttribute("eventTypes", eventTypeRepo.findAll());
         model.addAttribute("rsos", rsoRepo.findAll());
         model.addAttribute("event", new Event());
 
-        return "newevent";
+        return "main/eventForm";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createNewEvent(Model model, @Valid Event event, BindingResult bindingResult){
         System.out.println("Inside post new");
         System.out.println(event);
@@ -77,7 +103,7 @@ public class EventRESTController {
             model.addAttribute("event", event);
 
             System.out.println("Invalid Event Created");
-            return "newevent";
+            return "main/eventForm";
         }
 
         Event e = eventRepo.save(event);

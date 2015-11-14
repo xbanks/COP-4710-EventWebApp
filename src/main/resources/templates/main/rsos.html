@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8"/>
+	<title> RSO's </title>
+	<link rel="stylesheet" href="atlantic.css" type="text/css" />
+	<style>
+		h1 {
+			margin: 0;
+			padding: 0;
+		}
+		.menu {
+			margin: 0;
+			padding: 0;
+			display:inline; 
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<header>
+		<h1> University Events </h1>
+		</header>
+		
+		<nav>
+			<ul class="menu">
+				<li><a href="home.html"> Home </a> </li>
+				<li><a href="events.html"> Events </a> </li>
+				<li><a href="rsos.html"> RSO's </a> </li>
+				<li><a href="users.html"> Users </a> </li>
+			</ul>
+		</nav>
+		
+		<div id="rsos-image"></div>
+		
+		<main>
+			<h2> Here you'll find all Registered Student Organizations </h2>
+			
+			<div th:each="r : ${rsos}">
+				<h4 th:text="${r.name}">Rso Name</h4>
+				<b th:text="${r.description}">Rso Description</b>
+				Num Members: <b th:text="${r.num_members}"></b>
+			</div>
+					
+			
+			<h3> <a href="rsoForm.html"> Register a new Student Organization </a> </h3>
+			
+			<footer>
+			<p> 
+			Copyright &copy; 2015 Group 10<br />
+			</p>
+			</footer>
+		</main>
+	</div>
+</body>
+</html>

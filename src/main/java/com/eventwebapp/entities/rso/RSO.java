@@ -20,26 +20,31 @@ public class RSO implements Serializable {
 
     @Id
     @GeneratedValue
-    Long id_rso;
+    private Long id_rso;
 
-    @NotEmpty @Size(min = 3, max = 50)
-    String name;
-
-    @NotNull
-    Long type;
+    @NotEmpty
+    @Size(min = 3, max = 50)
+    private String name;
 
     @NotNull
-    Integer num_members;
+    private Long type;
+
+    @NotEmpty
+    private String description;
 
     @NotNull
-    Long university;
+    private Long num_members;
+
+    @NotNull
+    private Long university;
 
     public RSO() {
     }
 
-    public RSO(String name, Long type, Integer num_members, Long university) {
+    public RSO(String name, Long type, String description, Long num_members, Long university) {
         this.name = name;
         this.type = type;
+        this.description = description;
         this.num_members = num_members;
         this.university = university;
     }
@@ -68,11 +73,11 @@ public class RSO implements Serializable {
         this.type = type;
     }
 
-    public Integer getNum_members() {
+    public Long getNum_members() {
         return num_members;
     }
 
-    public void setNum_members(Integer num_members) {
+    public void setNum_members(Long num_members) {
         this.num_members = num_members;
     }
 
@@ -84,12 +89,21 @@ public class RSO implements Serializable {
         this.university = university;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "RSO{" +
                 "id_rso=" + id_rso +
                 ", name='" + name + '\'' +
                 ", type=" + type +
+                ", description='" + description + '\'' +
                 ", num_members=" + num_members +
                 ", university=" + university +
                 '}';
