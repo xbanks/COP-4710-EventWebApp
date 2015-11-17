@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css" />
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+
+<body class="w3-container">
+    <header class="w3-container w3-green w3-card-2">University Events</header>
+    <!-- top navigation bar with search-->
+    <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
+        <div class="w3-row">
+            <div class="w3-row">
+                <div class="w3-col">
+                    <a href="#" th:href="@{/}">Home</a>
+                    <a href="#" th:href="@{/events}">Events</a>
+                    <a href="#" th:href="@{/rsos}">RSOs</a>
+                    <a href="#" th:href="@{/admin}">Admin</a>
+                </div>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col">
+                <input type="text" name="search" placeholder="search" class="w3-input" />
+            </div>
+        </div>
+    </nav>
+    <!-- content container -->
+    <div id="container" class="w3-row">
+        <!-- Side navigation bar -->
+        <div id="sidenav" class="inner-component w3-card-2 w3-white w3-col l3">
+            <header class="w3-container w3-green">
+                <h3>Admin Controls</h3>
+            </header>
+            <div class="w3-topnav w3-light-grey w3-col l12">
+                <table class="w3-table">
+                    <tr>
+                        <td><a href="#" th:href="@{/rsos/create}">New RSO</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" th:href="@{/rsos}">All RSOs</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" th:href="@{/rsos/myrsos}">Your RSOs</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- Form -->
+        <div class="inner-component w3-card-4 w3-right w3-white w3-col l8 m12">
+            <div class="w3-container w3-green">
+                <h3>Register a new Student Organization</h3>
+            </div>
+            <div class="w3-white">
+                <form action="#" th:action="@{/rsos/create}" method="post" class="w3-form" th:object="${rsoForm}">
+                    <!-- 3 text inputs -->
+                    <div class="w3-input-group">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" name="1" required="required" th:field="*{name}" placeholder="E.g. University of Central Florida" class="w3-input" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="university">Affiliated University</label>
+                        <select id="university" th:field="*{university}" class="w3-input">
+                            <option th:each="u : ${universities}" th:value="${u.id_university}" th:text="${u.name}" />
+                        </select>
+                    </div>
+                    <!-- number input -->
+                    <div class="w3-input-group">
+                        <label for="members">Number of Members</label>
+                        <input id="members" type="number" min="0" step="1" name="01" th:field="*{num_members}" class="w3-input" />
+                    </div>
+                    <!-- 1 text area with a border-->
+                    <div class="w3-input-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="001" th:field="*{description}" cols="30" rows="10" class="w3-input w3-border"></textarea>
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="type">RSO Type</label>
+                        <select class="w3-input" th:field="*{type}">
+                            <option th:each="type : ${types}" th:value="${type.id_rso_type}" th:text="${type.name}" />
+                        </select>
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="admin">Admin</label>
+                        <input type="text" class="w3-input" placeholder="Email" id="admin" th:field="*{adminEmail}" required="required" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="user1">Member #1</label>
+                        <input type="text" class="w3-input" placeholder="Email" id="user1" th:field="*{userEmail1}" required="required" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="user2">Member #2</label>
+                        <input type="text" class="w3-input" placeholder="Email" id="user2" th:field="*{userEmail2}" required="required" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="user3">Member #3</label>
+                        <input type="text" class="w3-input" placeholder="Email" id="user3" th:field="*{userEmail3}" required="required" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="user4">Member #4</label>
+                        <input type="text" class="w3-input" placeholder="Email" id="user4" th:field="*{userEmail4}" required="required" />
+                    </div>
+                    <!-- blue submit button with the text "Create" -->
+                    <button class="w3-btn w3-blue" type="submit">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

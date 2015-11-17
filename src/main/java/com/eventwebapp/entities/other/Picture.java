@@ -16,6 +16,7 @@ public class Picture implements Serializable {
 
     @Id
     @GeneratedValue
+    private
     Long id_picture;
 
     @NotEmpty

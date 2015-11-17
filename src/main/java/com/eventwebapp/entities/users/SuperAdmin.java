@@ -13,6 +13,7 @@ import javax.persistence.Table;
 public class SuperAdmin  {
 
     @Id
+    private
     Long id_super_admin;
 
     public SuperAdmin() {

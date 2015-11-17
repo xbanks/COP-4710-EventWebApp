@@ -17,18 +17,23 @@ public class Comment  {
 
     @Id
     @GeneratedValue
+    private
     Long id_comment;
 
     @NotNull
+    private
     Long commenter;
 
     @NotNull
+    private
     Long event;
 
     @GeneratedValue
+    private
     Date timestamp;
 
     @NotNull
+    private
     String content;
 
     public Comment() {

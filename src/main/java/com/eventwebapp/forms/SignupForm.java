@@ -24,8 +24,7 @@ public class SignupForm extends User{
         if(this == null)
             return null;
 
-        User user = (User) this;
-        return user;
+        return this;
     }
 
     public SignupForm() {

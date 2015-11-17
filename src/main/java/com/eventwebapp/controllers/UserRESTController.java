@@ -26,12 +26,15 @@ import java.security.Principal;
 @Controller
 public class UserRESTController {
     @Autowired
+    private
     UserRepo userRepo;
 
     @Autowired
+    private
     UniversityRepo universityRepo;
 
     @Autowired
+    private
     CustomUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

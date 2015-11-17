@@ -14,11 +14,16 @@ import java.io.Serializable;
 @Entity
 @Table(name = "event_type")
 public class EventType implements Serializable {
+    public static final Long PUBLIC = 0L;
+    public static final Long PRIVATE = 0L;
+    public static final Long RSO = 0L;
+
     @Id
+    private
     Long id_event_type;
 
     @NotEmpty
-    String name;
+    private String name;
 
     public EventType() {
     }

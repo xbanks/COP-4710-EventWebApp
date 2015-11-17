@@ -26,9 +26,11 @@ public @Controller
 class EventAPI {
 
     @Autowired
+    private
     EventRepo eventRepo;
 
     @Autowired
+    private
     CommentRepo commentRepo;
 
     @RequestMapping("")
@@ -39,7 +41,7 @@ class EventAPI {
                          .sorted(Comparator.comparing(Event::getId_event));
 
         if(approved != null) {
-            eventStream = approved ? eventStream.filter(event -> event.isAdmin_approved()) :
+            eventStream = approved ? eventStream.filter(Event::isAdmin_approved) :
                                      eventStream.filter(event -> !event.isAdmin_approved());
         }
         System.out.println("approved: " + approved);

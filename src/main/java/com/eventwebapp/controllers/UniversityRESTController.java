@@ -40,22 +40,24 @@ import java.util.stream.Collectors;
 public class UniversityRESTController {
 
     @Autowired
+    private
     UniversityRepo universityRepo;
 
     @Autowired
     PictureMappingRepo pictureMappingRepo;
 
     @Autowired
+    private
     PictureRepo pictureRepo;
 
     // TODO: GET university creation page
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String newUniversity(Model model, University university){
         return "test/placeholder";
     }
 
     // TODO: POST to university creation page
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createNewUniversity(Model model, @Valid University university, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             model.addAttribute("message", "there were errors creating this university");

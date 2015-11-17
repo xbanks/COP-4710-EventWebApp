@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<meta charset="utf-8"/>
 	<title> Home </title>
-	<link rel="stylesheet" href="atlantic.css" type="text/css" />
+	<link rel="stylesheet" href="/css/atlantic.css" type="text/css" />
 	<style>
 		h1 {
 			margin: 0;
@@ -25,22 +25,22 @@
 		
 		<nav>
 			<ul class="menu">
-				<li><a href="adminHome.html"> Home </a> </li>
-				<li><a href="adminEvents.html"> Events </a> </li>
-				<li><a href="adminUsers.html"> Users </a> </li>
-                <li><a href="createUni.html"> Create University </a> </li>
+				<li><a href="adminHome.html" th:href="@{/admin}"> Home </a> </li>
+				<li><a href="adminEvents.html" th:href="@{/admin/pendingevents}"> Events </a> </li>
+				<li><a href="adminUsers.html" th:href="@{/admin/users}"> Users </a> </li>
+                <li><a href="createUni.html" th:href="@{/admin/create/university}"> Create University </a> </li>
 			</ul>
 		</nav>
 		
 		<main>
         
-        <form method="post" action="database-form-php" >
+        <form method="post" action="" >
 				<h2> Create a New University </h2>
 				<fieldset>
 					<ul class="former">
 						<li>
 							<label for="uniName"> Name: </label>
-							<input type="text" id="uniName" name="uniName" required="required" autofocus/>
+							<input type="text" id="uniName" name="uniName" required="required" autofocus="autofocus"/>
 						</li>
 						<li>
 							<label for="uniLocation"> Location: </label>
@@ -48,7 +48,7 @@
 						</li>
 						<li>
 							<label for="description"> Description: </label>
-							<textarea id="description" name="decription" rows="4" cols="50"></textarea>
+							<textarea id="description" name="description" rows="4" cols="50"></textarea>
 						</li>
                         <li>
 							<label for="numStudents"> Students: </label>
@@ -57,7 +57,7 @@
                         <li>
                          	<form action="demo_form.asp">
                     			<label for="fileToUpload1"> Select Images: </label>
-                                <input type="file" name="img" multiple>
+                                <input id="fileToUpload1" type="file" name="img" multiple="multiple" />
   								<input type="submit" class="submit" value="Submit" />
                             </form>
                         </li>

@@ -2,6 +2,8 @@ package com.eventwebapp.repositories;
 
 import com.eventwebapp.entities.event.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -14,4 +16,10 @@ import java.util.List;
 public interface EventRepo extends JpaRepository<Event, Long> {
     Event findByName(String name);
     List<Event> findByDate(Date date);
+
+    @Query("SELECT e FROM Event e WHERE e.host_rso=:host_rso")
+    List<Event> findByHost_Rso(@Param("host_rso") Long host_rso);
+
+    @Query("SELECT e FROM Event e WHERE e.type=:type")
+    List<Event> findByType(@Param("type") Long type);
 }

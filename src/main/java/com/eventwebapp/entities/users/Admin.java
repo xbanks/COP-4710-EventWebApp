@@ -12,10 +12,12 @@ import javax.validation.constraints.NotNull;
 //@Table(name = "admin")
 public class Admin  {
 
-    @Id
+    @NotNull
+    private
     Long id_admin;
 
-    @NotNull
+    @Id
+    private
     Long owned_rso;
 
     public Admin() {

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" href="css/w3.css" />
+	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
+	<style type="text/css">
+		.center {
+		    margin: auto;
+		    width: 50%;
+		    padding: 10px;
+		}
+		body {
+		    background-image: url("/images/mountains.jpg");
+		    background-color: #cccccc;
+		}
+
+		h1{
+			font-family: 'Arimo', sans-serif;
+		}
+	</style>
+</head>
+<body>
+<header class="w3-container w3-blue">University Events</header>
+<div class="w3-container w3-row">
+	<div class="w3-container center w3-col l6 m8 s12">
+		<form class="w3-form w3-card-8 w3-white" action="#" th:action="@{/login}" method="post">
+			<h1 class="w3-center">Login</h1>
+			<div class="w3-input-group">
+				<label for="email">Email</label>
+				<input id="email" class="w3-input" name="username" type="text" />
+			</div>
+			<div class="w3-input-group">
+				<label for="passwd">Password</label>
+				<input id="passwd" class="w3-input" name="password" type="password"/>
+			</div>
+			<input class="w3-btn" type="submit" value="Login"/>
+			<button class="w3-btn">Register</button>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+	</div>
+</div>
+</body>
+</html>

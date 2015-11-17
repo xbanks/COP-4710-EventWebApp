@@ -15,9 +15,11 @@ import java.io.Serializable;
 public class RsoMember implements Serializable{
 
     @Id
+    private
     Long affiliated_rso;
 
     @NotNull
+    private
     Long member;
 
     public RsoMember(){

@@ -15,12 +15,14 @@ import java.io.Serializable;
 public class UserType implements Serializable {
 
     @Id
+    private
     Long name_id;
 
     @GeneratedValue
+    private
     Long id_user_type;
 
-    String name;
+    private String name;
 
     public UserType() {
     }

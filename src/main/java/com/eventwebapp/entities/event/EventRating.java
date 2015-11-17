@@ -15,11 +15,13 @@ import java.io.Serializable;
 public class EventRating implements Serializable{
 
     @Id
+    private
     Long event;
 
-    Long reviewer;
+    private Long reviewer;
 
     @Max(value = 5)
+    private
     Integer rating;
 
     public EventRating() {

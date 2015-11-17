@@ -2,6 +2,7 @@ package com.eventwebapp.controllers;
 
 import com.eventwebapp.entities.event.Event;
 import com.eventwebapp.entities.rso.RSO;
+import com.eventwebapp.entities.rso.University;
 import com.eventwebapp.entities.users.Admin;
 import com.eventwebapp.entities.users.User;
 import com.eventwebapp.repositories.AdminRepo;
@@ -29,15 +30,19 @@ import java.util.stream.Collectors;
 public class AdminRESTController {
 
     @Autowired
+    private
     UserRepo userRepo;
 
     @Autowired
+    private
     AdminRepo adminRepo;
 
     @Autowired
+    private
     EventRepo eventRepo;
 
     @Autowired
+    private
     CustomUserDetailsService userDetailsService;
 
     @RequestMapping(value = "")
@@ -48,10 +53,10 @@ public class AdminRESTController {
                          .collect(Collectors.toList());
 
         model.addAttribute("pendingEvents", pendingEvents);
-        return "admin/adminHome";
+        return "newlayout/adminEvents";
     }
 
-    @RequestMapping(value = "/unapproved")
+    @RequestMapping(value = "/pendingevents")
     public String unapproved(Model model){
         List<Event> pendingEvents =
                 eventRepo.findAll().stream()
@@ -59,7 +64,7 @@ public class AdminRESTController {
                         .collect(Collectors.toList());
 
         model.addAttribute("pendingEvents", pendingEvents);
-        return "admin/adminEvents";
+        return "newlayout/adminEvents";
     }
 
     @RequestMapping(value = "users")
@@ -67,23 +72,38 @@ public class AdminRESTController {
         // TODO: 11/12/15 Change this back to !user.isEnabled()
         List<CustomUserDetails> lockedUsers =
                 userRepo.findAll().stream()
-                        .filter(user -> user.isEnabled())
-                        .map(user -> user.getEmail())
+                        .filter(User::isEnabled)
+                        .map(User::getEmail)
                         .map(userDetailsService::loadUserByUsername)  // TODO: 11/12/15 change the email/username thing
                         .map(userDetails -> (CustomUserDetails)userDetails)
                         .collect(Collectors.toList());
         model.addAttribute("users", lockedUsers);
-        return "admin/adminUsers";
+        return "newlayout/adminUsers";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newAdmin(Model model){
+    @RequestMapping(value = "/create/university", method = RequestMethod.GET)
+    public String createUni(Model model, University university){
+
+        return "newlayout/createUni";
+    }
+
+    @RequestMapping(value = "/create/university", method = RequestMethod.POST)
+    public String createNewUni(Model model, @Valid University university, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "newlayout/createUni";
+        }
+
+        return "redirect: /admin";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createAdmin(Model model){
         // maybe this should be done with the rso creation???
 
         return "test/placeholder";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createNewAdmin(Model model, @Valid Admin admin, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "test/placeholder";

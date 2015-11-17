@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
 	<title> Home </title>
-	<link rel="stylesheet" href="atlantic.css" type="text/css" />
+	<link rel="stylesheet" href="/css/atlantic.css" type="text/css" />
 	<style>
 		h1 {
 			margin: 0;
@@ -25,16 +25,16 @@
 		
 		<nav>
 			<ul class="menu">
-				<li><a href="adminHome.html"> Home </a> </li>
-				<li><a href="adminEvents.html"> Events </a> </li>
-				<li><a href="adminUsers.html"> Users </a> </li>
-                <li><a href="createUni.html"> Create University </a> </li>
+				<li><a href="adminHome.html" th:href="@{/admin}"> Home </a> </li>
+				<li><a href="adminEvents.html" th:href="@{/admin/pendingevents}" >Events </a> </li>
+				<li><a href="adminUsers.html" th:href="@{/admin/users}"> Users </a> </li>
+                <li><a href="createUni.html" th:href="@{/admin/create/university}"> Create University </a> </li>
 			</ul>
 		</nav>
 		
 		<main>
         
-        <script src="jquery-1.11.3.js">
+        <script src="/js/jquery-1.11.3.js">
     		$("a[id^=show_]").click(function(event) {
     		$("#extra_" + $(this).attr('id').substr(5)).slideToggle("slow");
     		event.preventDefault();
@@ -82,7 +82,7 @@
             </div>
         </table>
 
-      <center><a href="adminEvents.html"> View More... </a></center>
+      <center><a href="adminEvents.html" th:href="@{/admin/pendingevents}"> View More... </a></center>
             
     <h2> RSOs Pending Approval </h2>
     

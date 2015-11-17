@@ -21,9 +21,11 @@ import javax.validation.Valid;
 public class StudentRESTController {
 
     @Autowired
+    private
     UserRepo userRepo;
 
     @Autowired
+    private
     StudentRepo studentRepo;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)

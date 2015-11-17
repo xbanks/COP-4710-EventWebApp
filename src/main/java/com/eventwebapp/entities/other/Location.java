@@ -20,15 +20,18 @@ public class Location implements Serializable {
 
     @Id
     @GeneratedValue
+    private
     Long id_location;
 
     @NotEmpty @Size(min = 2)
     String name;
 
     @NotNull
+    private
     Float latitude;
 
     @NotNull
+    private
     Float longitude;
 
     public Location() {

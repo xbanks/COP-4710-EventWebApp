@@ -20,6 +20,7 @@ public class University implements Serializable {
 
     @Id
     @GeneratedValue
+    private
     Long id_university;
 
     @NotEmpty
@@ -29,9 +30,11 @@ public class University implements Serializable {
     String description;
 
     @NotNull
+    private
     Long uni_location;
 
     @NotNull
+    private
     Long num_students;
 
     @NotEmpty @Size(max = 10)

@@ -1,5 +1,6 @@
 package com.eventwebapp.controllers;
 
+import com.eventwebapp.entities.event.Event;
 import com.eventwebapp.entities.rso.RSO;
 import com.eventwebapp.entities.rso.RsoMember;
 import com.eventwebapp.forms.RsoForm;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Xavier on 11/4/2015.
@@ -22,31 +26,41 @@ import java.util.List;
 
 // maybe this should be mapped to /university/{uniid}/rso ? since an rso is affiliated with a university
 @Controller
-@RequestMapping("/rso")
+@RequestMapping("/rsos")
 public class RsoRESTController {
 
     @Autowired
+    private
     RSORepo rsoRepo;
 
     @Autowired
+    private
     RSOTypeRepo rsoTypeRepo;
 
     @Autowired
+    private
     UniversityRepo universityRepo;
 
     @Autowired
+    private
     UserRepo userRepo;
 
     @Autowired
+    private
     RsoMemberRepo rsoMemberRepo;
+
+    @Autowired
+    private
+    EventRepo eventRepo;
 
     // GET the list of all rsos on a page
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listRSOs(Model model){
         // TODO: attach the list of rsos to the model
-        model.addAttribute("rsos", rsoRepo.findAll());
+        model.addAttribute("list", rsoRepo.findAll());
+        model.addAttribute("listName", "All RSOs");
         // TODO: send to rso list page
-        return "main/rsos";
+        return "newlayout/rsos";
     }
 
     // GET the rso creation page
@@ -56,7 +70,7 @@ public class RsoRESTController {
         model.addAttribute("types", rsoTypeRepo.findAll());
         model.addAttribute("universities", universityRepo.findAll());
 
-        return "main/rsoForm";
+        return "newlayout/createRso";
     }
 
     // POST to the new rso page
@@ -69,7 +83,7 @@ public class RsoRESTController {
             System.out.println(bindingResult.getAllErrors().toString());
 
             // TODO: send the user back to the rso creation page
-            return "main/rsoForm";
+            return "newlayout/createRso";
         }
 
         // TODO: 11/13/15 check to make sure none of the emails are repeated
@@ -81,14 +95,14 @@ public class RsoRESTController {
             model.addAttribute("errorMessage", "Something went wrong, we could not create the RSO, you may try again");
 
             // Send user back to /new
-            return "main/rsoForm";
+            return "newlayout/createRso";
         }
 
         rsoRepo.save(rso);
 
 
         // TODO: redirect to the new rso page.
-        return String.format("redirect:/rso/", rso.getId_rso());
+        return String.format("redirect:/rso/%d", rso.getId_rso());
     }
 
     // GET a single rso page
@@ -105,11 +119,56 @@ public class RsoRESTController {
         return "test/placeholder";
     }
 
+    // GET my rsos
+    @RequestMapping(value = "/myrsos", method = RequestMethod.GET)
+    public String myRSOs(Model model, Principal principal){
+        if(principal == null){
+            return "redirect:/login";
+        }
+
+        Long userId = userRepo.findByUsername(principal.getName()).getId_user();
+        // Add list name Attribute. Ie. "Your RSOs" or "All RSOs"
+        List<Long> rsoIds = getUserRSOs(userId);
+        List<RSO> rsoList = rsoRepo.findAll(rsoIds);
+
+        model.addAttribute("listName", "RSOs You Are In");
+        model.addAttribute("list", rsoList);
+
+        return "newlayout/rsos"; // Should be sent back to rso page
+    }
+
+    @RequestMapping(value = "/myrsos/events", method = RequestMethod.GET)
+    public String myRSOsEvents(Model model, Principal principal){
+        List<Event> eventList = new ArrayList<>();
+        if(principal != null){
+            Long userId = userRepo.findByUsername(principal.getName()).getId_user();
+            List<Long> rsoIds = getUserRSOs(userId);
+            List<RSO> rsoList = rsoRepo.findAll(rsoIds);
+            rsoList.parallelStream()
+                    .map(RSO::getId_rso)
+                    .forEach(id -> eventList.addAll(eventRepo.findByHost_Rso(id)));
+        }
+
+        /*  See if this works? longer, but I need to know how reduce works
+        eventList = rsoList.parallelStream()
+                .map(RSO::getId_rso)
+                .map(id -> eventRepo.findByHost_Rso(id))
+                .reduce(new ArrayList<Event>(0), (a, b) -> {
+                    a.addAll(b);
+                    return b;
+                });
+        */
+
+        model.addAttribute("list", eventList);
+        model.addAttribute("listName", "Events Hosted By Your RSOs");
+
+        return "newlayout/events";
+    }
+
 
 
     private boolean doesUserExist(@Email String email){
         return userRepo.findByEmail(email) != null;
-
     }
 
     private boolean addRSOMembersByEmail(List<String> members, Long rsoId){
@@ -130,8 +189,14 @@ public class RsoRESTController {
         return true;
     }
 
+    private List<Long> getUserRSOs(Long userid){
+        return rsoMemberRepo.findByMember(userid).stream()
+                .map(RsoMember::getAffiliated_rso)
+                .collect(Collectors.toList());
+    }
+
     private boolean addMemberById(Long userId, Long rsoId){
-        RsoMember m = rsoMemberRepo.findByMember(userId);
+        RsoMember m = rsoMemberRepo.findByMemberAndRso(userId, rsoId);
 
         // also check if user exists here as well
         if(userRepo.exists(userId) && (m != null && m.getAffiliated_rso() == rsoId)){

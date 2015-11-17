@@ -16,10 +16,11 @@ import java.io.Serializable;
 public class EntityType implements Serializable {
 
     @Id
+    private
     Long id_entity_name;
 
     @NotEmpty
-    String entity_name;
+    private String entity_name;
 
     public EntityType() {
     }

@@ -15,11 +15,11 @@ public class DashboardRESTController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String dashboard(Model model){
-        return "dashboard";
+        return "redirect:/events";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String dashboardPOST(Model model){
-        return "dashboard";
+        return "redirect:/events";
     }
 }

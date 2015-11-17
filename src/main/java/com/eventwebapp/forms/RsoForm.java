@@ -52,7 +52,7 @@ public class RsoForm extends RSO{
 
     // TODO: 11/13/15 make sure the emails dont actually fully match though
     // Make sure all five emails have matching domains.
-    public boolean matchingDomains(){
+    private boolean matchingDomains(){
         boolean matching = this.userEmail1.split("@")[1].equals(this.userEmail2.split("@")[1]) &&
                 this.userEmail2.split("@")[1].equals(this.userEmail3.split("@")[1]) &&
                 this.userEmail3.split("@")[1].equals(this.userEmail4.split("@")[1]) &&
@@ -67,8 +67,7 @@ public class RsoForm extends RSO{
 
     public RSO createRSO(){
         if(this.matchingDomains()){
-            RSO rso = new RSO(this.getName(), this.getType(), this.getDescription(), this.getNum_members(), this.getUniversity());
-            return rso;
+            return new RSO(this.getName(), this.getType(), this.getDescription(), this.getNum_members(), this.getUniversity());
         }
         return null;
     }

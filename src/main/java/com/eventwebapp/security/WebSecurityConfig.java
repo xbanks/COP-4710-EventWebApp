@@ -40,18 +40,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // TODO: 11/12/15 maybe do all of this in a spring-security.xml file? might be cleaner
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll().and().csrf();
-//                .antMatchers("/events/**").access("hasRole('ROLE_STUDENT')")
-//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//                .anyRequest().permitAll()
-//                .and()
-//                    .formLogin().loginPage("/login")
-//                        .failureUrl("/something").permitAll()
-//                        .usernameParameter("username")
-//                        .passwordParameter("password")
-//                .and()
-//                    .exceptionHandling().accessDeniedPage("/register")
-//                .and().csrf();
+        http.authorizeRequests()//.anyRequest().permitAll().and().csrf();
+                .antMatchers("/events/**").access("hasRole('ROLE_STUDENT')")
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().permitAll()
+                .and()
+                    .formLogin().loginPage("/login")
+                        .failureUrl("/login").permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                .and()
+                    .exceptionHandling().accessDeniedPage("/register")
+                .and().csrf();
     }
 
     @Bean(name = "passwordEncoder")

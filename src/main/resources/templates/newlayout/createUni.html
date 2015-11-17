@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css" />
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+
+<body class="w3-container">
+    <header class="w3-container w3-green w3-card-2">University Events</header>
+    <!-- top navigation bar with search-->
+    <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
+        <div class="w3-row">
+            <div class="w3-row">
+                <div class="w3-col">
+                    <a href="#" th:href="@{/}">Home</a>
+                    <a href="#" th:href="@{/events}">Events</a>
+                    <a href="#" th:href="@{/rsos}">RSOs</a>
+                    <a href="#" th:href="@{/admin}">Admin</a>
+                </div>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col">
+                <input type="text" name="search" placeholder="search" class="w3-input" />
+            </div>
+        </div>
+    </nav>
+    <!-- content container -->
+    <div id="container" class="w3-row">
+        <!-- Side navigation bar -->
+        <div id="sidenav" class="inner-component w3-card-2 w3-white w3-col l3">
+            <header class="w3-container w3-green">
+                <h3>Admin Controls</h3>
+            </header>
+            <div class="w3-topnav w3-light-grey w3-col l12">
+                <table class="w3-table">
+                    <tr>
+                        <td><a href="#" th:href="@{/admin}">Admin Dashboard</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" th:href="@{/admin/pendingevents}">Events</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" th:href="@{/admin/users}">Users</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" th:href="@{/admin/create/university}">Universities</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- Form -->
+        <div class="inner-component w3-card-4 w3-right w3-white w3-col l8 m12">
+            <div class="w3-container w3-green">
+                <h3>Create a new University</h3>
+            </div>
+            <div class="w3-white">
+                <form action="#" th:action="@{/admin/create/university}" method="post" class="w3-form" th:object="${university}">
+                    <!-- 3 text inputs -->
+                    <div class="w3-input-group">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" name="1" required="required" th:field="*{name}" placeholder="E.g. University of Central Florida" class="w3-input" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="shortname">Short Name</label>
+                        <input id="shortname" type="text" name="2" required="required" th:field="*{short_name}" placeholder="E.g. UCF" class="w3-input" />
+                    </div>
+                    <div class="w3-input-group">
+                        <label for="location">Location</label>
+                        <input id="location" type="number" name="3" required="required" th:field="*{uni_location}" placeholder="Eg. 4000 Central FL Blvd" class="w3-input" />
+                    </div>
+                    <!-- number input -->
+                    <div class="w3-input-group">
+                        <label for="enrollment">Enrollment #</label>
+                        <input id="enrollment" type="number" min="0" step="1" name="01" th:field="*{num_students}" class="w3-input" />
+                    </div>
+                    <!-- 1 text area with a border-->
+                    <div class="w3-input-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="001" th:field="*{description}" cols="30" rows="10" class="w3-input w3-border"></textarea>
+                    </div>
+                    <!-- blue submit button with the text "Create" -->
+                    <button class="w3-btn w3-blue" type="submit">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -3,10 +3,7 @@ package com.eventwebapp.entities.event;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,12 +26,13 @@ public class Event implements Serializable {
     Long id_event;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dddd MMM dd")
     @Future(message = "Date needs to be in the future")
     Date date;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "h:m")
     LocalTime time;
 
     @NotNull

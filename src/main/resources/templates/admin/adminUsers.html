@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title> Events </title>
-	<link rel="stylesheet" href="atlantic.css" type="text/css" />
+	<link rel="stylesheet" href="/css/atlantic.css" type="text/css" />
 	<style>
 		h1 {
 			margin: 0;
@@ -25,10 +25,10 @@
 		
 		<nav>
 			<ul class="menu">
-				<li><a href="adminHome.html"> Home </a> </li>
-                <li><a href="adminEvents.html"> Events </a> </li>
-				<li><a href="adminUsers.html"> Users </a> </li>
-                <li><a href="createUni.html"> Create University </a> </li>
+				<li><a href="adminHome.html" th:href="@{/admin}"> Home </a> </li>
+                <li><a href="adminEvents.html" th:href="@{/admin/pendingevents}"> Events </a> </li>
+				<li><a href="adminUsers.html" th:href="@{/admin/users}"> Users </a> </li>
+                <li><a href="createUni.html" th:href="@{/admin/create/university}"> Create University </a> </li>
 			</ul>
 		</nav>
 	<main>

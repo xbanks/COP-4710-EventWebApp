@@ -16,7 +16,10 @@ import java.io.Serializable;
 @Table(name = "rso_type")
 public class RSOType implements Serializable {
 
+
+
     @Id
+    private
     Long id_rso_type;
 
     @NotEmpty
