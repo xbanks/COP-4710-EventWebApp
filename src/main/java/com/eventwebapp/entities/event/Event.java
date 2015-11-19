@@ -1,5 +1,6 @@
 package com.eventwebapp.entities.event;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,7 +9,6 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,30 +23,40 @@ public class Event implements Serializable {
 
     @Id
     @GeneratedValue
-    Long id_event;
+    private Long id_event;
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dddd MMM dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "d MMMM, yyyy")
     @Future(message = "Date needs to be in the future")
-    Date date;
+    private Date date;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "h:m")
-    LocalTime time;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,  pattern = "kk:mm")
+    private LocalTime time;
 
     @NotNull
-    Long location;
+    private Long location;
 
     @NotEmpty
     @Size(min = 5, max = 500, message = "Must be between 5 and 500 characters")
-    String description;
+    private String description;
 
     @NotNull
-    Long type;
+    private Long type;
 
     @NotNull
-    Long host_rso;
+    private Long host_rso;
+
+    @NotEmpty
+    private String contactPhone;
+
+    @NotEmpty
+    private String contactName;
+
+    @NotEmpty
+    @Email
+    private String contactEmail;
 
     boolean sadmin_approved;
     boolean admin_approved;
@@ -60,7 +70,8 @@ public class Event implements Serializable {
 
     public Event(Date date, LocalTime time, Long location, String description,
                  boolean admin_approved, boolean sadmin_approved,
-                 Long type, Long host_rso, String name) {
+                 Long type, Long host_rso, String name, String contactName,
+                 String contactEmail, String contactPhone) {
         System.out.println("Constructor: " + date);
         Calendar calendar = Calendar.getInstance();
         calendar.set(date.getYear()+1900, date.getMonth(), date.getDate(), 0, 0, 0);
@@ -74,6 +85,9 @@ public class Event implements Serializable {
         this.type = type;
         this.host_rso = host_rso;
         this.name = name;
+        this.contactName = contactName;
+        this.contactEmail = contactEmail;
+        this.contactPhone = contactPhone;
     }
 
     public Long getId_event() {
@@ -91,7 +105,7 @@ public class Event implements Serializable {
     public void setDate(Date date) {
         System.out.println("Set Date: " + date);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear()+1900, date.getMonth(), date.getDate(), 0, 0, 0);
+        calendar.set(date.getYear()+1900, date.getMonth(), date.getDate()+1, 0, 0, 0);
 
         System.out.println("Set DateTo: " + calendar.getTime().toString());
         this.date = calendar.getTime();
@@ -159,6 +173,30 @@ public class Event implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
     @Override

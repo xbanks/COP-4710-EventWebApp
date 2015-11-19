@@ -65,15 +65,13 @@
                     <div class="list-element-content">
                         <header class="w3-container">
                             <h3 class="list-element-header">
-									<a href="#" th:href="@{events/{id}(id=${event.id_event})}" th:text="${event.name}">Event Name</a>
-								</h3>
+		          <a href="#" th:href="@{/events/{id}(id=${event.id_event})}" th:text="${event.name}">Event Name</a>
+		      </h3>
                         </header>
                         <div class="w3-container">
-                            <div class="w3-text" th:text="${event.time}">Event Time</div>
-                            <div class="w3-text w3-small" th:text="${event.date}">Event Date</div>
-                            <div class="list-description">
-                                <p class="w3-small" th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium minima autem possimus quos repudiandae laboriosam, animi harum perferendis mollitia aut.</p>
-                            </div>
+                            <h3> <b class="w3-text" th:text="${event.time}">Event Time</b></h3>
+                            <div class="w3-text w3-large" th:text="${#dates.format(event.date, 'MMM d')}">Event Date</div>
+                            <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium minima autem possimus quos repudiandae laboriosam, animi harum perferendis mollitia aut.</p>
                         </div>
                     </div>
                 </div>

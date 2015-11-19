@@ -8,6 +8,13 @@
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="/css/default.css" id="theme_base" />
+    <link rel="stylesheet" href="/css/default.date.css"  id="theme_date" />
+    <link rel="stylesheet" href="/css/default.time.css" id="theme_time" />
+    <script src="/js/jquery-1.11.3.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="/js/picker.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="/js/picker.date.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="/js/picker.time.js" type="text/javascript" charset="utf-8" ></script>
 </head>
 
 <body class="w3-container">
@@ -44,9 +51,9 @@
                     <tr>
                         <td><a href="#" th:href="@{/events/calendar}">Calendar</a></td>
                     </tr>
-                    <!-- 						<tr>
-							<td><a href="#" th:href="@{/events?sorttby=}">Popular Events</a></td> 
-						</tr> -->
+                    <!--                        <tr>
+                            <td><a href="#" th:href="@{/events?sorttby=}">Popular Events</a></td> 
+                        </tr> -->
                 </table>
             </div>
         </div>
@@ -60,24 +67,30 @@
                     <!-- 3 text inputs -->
                     <div class="w3-input-group">
                         <label for="name">Name</label>
-                        <input id="name" type="text" name="1" required="required" th:field="*{name}" placeholder="E.g. House Party" class="w3-input" />
+                        <input id="name" type="text" name="1" required="required" th:field="*{name}" placeholder="E.g. House Party" autofocus="autofocus" class="w3-input" />
                     </div>
                     <!-- number input -->
-                    <div class="w3-input-group">
-                        <label for="date">Date</label>
-                        <input id="date" type="date" th:field="*{date}" class="w3-input" required="required" />
+                    <div class="w3-row">    
+                        <div class="w3-input-group w3-col l5 m5 s12 w3-left">
+                            <label for="datepicker">Date</label>
+                            <input id="datepicker" class="w3-input" type="text" th:field="*{date}" required="required" />
+                        </div>
+                        <div class="w3-input-group w3-col l5 m5 s12 w3-right">
+                            <label for="time">Time</label>
+                            <input id="time" type="time" th:field="*{time}" class="w3-input" required="required" />
+                        </div>
                     </div>
                     <div class="w3-input-group">
-                        <label for="time">Time</label>
-                        <input id="time" type="time" th:field="*{time}" class="w3-input" required="required" />
+                        <label for="type">Type</label>
+                        <select id="type" th:field="*{type}" class="w3-input">
+                            <option th:each="type : ${eventTypes}" th:value="${type.id_event_type}" th:text="${type.name}" />
+                        </select>
                     </div>
                     <div class="w3-input-group">
                         <label for="host">Host RSO</label>
                         <select class="w3-input" th:field="*{host_rso}">
-							<option th:each="affiliated_rso : ${rsos}"
-									th:value="${affiliated_rso.id_rso}"
-									th:text="${affiliated_rso.name}" />
-						</select>
+                            <option th:each="affiliated_rso : ${rsos}" th:value="${affiliated_rso.id_rso}" th:text="${affiliated_rso.name}" />
+                        </select>
                     </div>
                     <!-- 1 text area with a border-->
                     <div class="w3-input-group">
@@ -87,20 +100,37 @@
                     <div class="w3-input-group">
                         <label for="location">Location</label>
                         <select th:field="*{location}" class="w3-input">
-							<option th:each="loc : ${locations}"
-									th:value="${loc.id_location}"
-									th:text="${loc.name}" />
-						</select>
+                            <option th:each="loc : ${locations}" th:value="${loc.id_location}" th:text="${loc.name}" />
+                        </select>
                         <!-- <input id="location" type="text" name="3" required="required" th:field="*{}" placeholder="Eg. 4000 Central FL Blvd" class="w3-input" /> -->
+                    </div>
+                    <div class="w3-input-group w3-row">
+                        <div class="w3-col l5 m12 s12 w3-left">
+                            <label for="contactName">Contact Name</label>
+                            <input class="w3-input" type="text" name="contactName" placeholder="John Johnson" th:field="*{contactName}" required="required" />
+                        </div>
+                        <div class="w3-col l5 m12 s12 w3-right">
+                            <label for="contactPhone">Contact Phone</label>
+                            <input class="w3-input" type="tel" name="contactPhone"  placeholder="555-555-5555" th:field="*{contactPhone}" required="required" />
+                        </div>
+                        <div class="w3-col l5 m12 s12">
+                            <label for="contactEmail">Contact Email</label>
+                            <input class="w3-input" type="email" name="contactEmail"  placeholder="example@example.com" th:field="*{contactEmail}" required="required" />
+                        </div>
                     </div>
                     <!-- blue submit button with the text "Create" -->
                     <input type="hidden" th:field="*{admin_approved}" value="false" />
-					<input type="hidden" th:field="*{sadmin_approved}" value="false" />
+                    <input type="hidden" th:field="*{sadmin_approved}" value="false" />
                     <button class="w3-btn w3-blue" type="submit">Create</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" charset="utf-8">
+        $('#datepicker').pickadate()
+    </script>
+
 </body>
 
 </html>

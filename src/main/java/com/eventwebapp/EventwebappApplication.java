@@ -36,7 +36,7 @@ public class EventwebappApplication {
 
             // New User, Super Admin,
             String passwd = webSecurityConfig.passwordEncoder().encode("password1");
-            Long userId = userRepo.save(new User("xavier", "banks", passwd, "xavier@mail.mail", "5615555555")).getId_user();
+            Long userId = userRepo.save(new User("John", "Johnson", passwd, "test@mail.mail", "5615555555")).getId_user();
 
             // new super user
             superAdminRepo.save(new SuperAdmin(userId));
@@ -66,8 +66,8 @@ public class EventwebappApplication {
             Long privateID = eventTypeRepo.save(new EventType(2L, "private")).getId_event_type();
             Long rsoID = eventTypeRepo.save(new EventType(3L, "rso")).getId_event_type();
 
-            Long eventId = eventRepo.save(new Event(new Date(2016, 7, 7), LocalTime.now().plusHours(5).plusMinutes(30), locId, "This is a test event for the Kendo Club", false, false, publicID, rsoId, "Test Event")).getId_event();
-            Long eventId2 = eventRepo.save(new Event(new Date(2016, 7, 7), LocalTime.now().plusHours(12).plusMinutes(25), locId, "This is the second event for the Kendo Club", false, false, publicID, rsoId, "Event Number 2")).getId_event();
+            Long eventId = eventRepo.save(new Event(new Date(2016, 7, 7), LocalTime.now().plusHours(5).plusMinutes(30), locId, "This is a test event for the Kendo Club", false, false, publicID, rsoId, "Test Event", "Xavier Banks", "xavier@email.com", "5612945725")).getId_event();
+            Long eventId2 = eventRepo.save(new Event(new Date(2016, 7, 7), LocalTime.now().plusHours(12).plusMinutes(25), locId, "This is the second event for the Kendo Club", false, false, publicID, rsoId, "Event Number 2", "Myra Banks", "myra@email.com", "5612945755")).getId_event();
 
             userRoleRepo.findByUser(userId).stream().forEach(System.out::println);
         };

@@ -1,15 +1,9 @@
 package com.eventwebapp.controllers;
 
-import com.eventwebapp.entities.event.Event;
-import com.eventwebapp.entities.event.EventType;
-import com.eventwebapp.entities.event.EventsOnDay;
-import com.eventwebapp.repositories.EventRepo;
-import com.eventwebapp.repositories.EventTypeRepo;
-import com.eventwebapp.repositories.LocationRepo;
-import com.eventwebapp.repositories.RSORepo;
+import com.eventwebapp.entities.event.*;
+import com.eventwebapp.repositories.*;
 import com.eventwebapp.util.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -23,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -37,20 +29,22 @@ import java.util.stream.Collectors;
 public class EventRESTController {
 
     @Autowired
-    private
-    EventRepo eventRepo;
+    private EventRepo eventRepo;
 
     @Autowired
-    private
-    LocationRepo locationRepo;
+    private LocationRepo locationRepo;
 
     @Autowired
-    private
-    EventTypeRepo eventTypeRepo;
+    private EventTypeRepo eventTypeRepo;
 
     @Autowired
-    private
-    RSORepo rsoRepo;
+    private RSORepo rsoRepo;
+
+    @Autowired
+    private CommentRepo commentRepo;
+
+    @Autowired
+    private EventRatingRepo eventRatingRepo;
 
     @RequestMapping("")
     public String events (Model model,
@@ -82,9 +76,31 @@ public class EventRESTController {
 
     @RequestMapping("/{id}")
     public String eventByID(Model model, @PathVariable("id") Long id){
-        model.addAttribute("events", eventRepo.findOne(id));
+        Event event = eventRepo.findOne(id);
 
-        return "test/events";
+        // Make sure the event actually exists.
+        // This should send them to a "This event does not exist" page
+        if (event == null) {
+            return "test/placeholder";
+        }
+
+        model.addAttribute("event", event);
+        model.addAttribute("eventType", eventTypeRepo.findOne(event.getType()).getName());
+        model.addAttribute("comments", commentRepo.findByEvent(event.getId_event()));
+        int rating = 0;
+
+        if(eventRatingRepo.findByEvent(event.getId_event()) != null){
+            OptionalDouble rtng = eventRatingRepo.findByEvent(event.getId_event()).stream()
+                        .mapToInt(EventRating::getRating)
+                        .average();
+
+            if(rtng.isPresent()){
+                rating = (int) rtng.getAsDouble();
+            }
+        }
+        model.addAttribute("rating", rating);
+
+        return "newlayout/eventPage";
     }
 
     @RequestMapping("/thisweek")
@@ -110,9 +126,8 @@ public class EventRESTController {
     }
 
 
-
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String createEventPage(Model model, Event event){
+    public String createEventPage(Model model, Event event, Principal principal){
         model.addAttribute("locations", locationRepo.findAll());
         model.addAttribute("eventTypes", eventTypeRepo.findAll());
         model.addAttribute("rsos", rsoRepo.findAll());
@@ -130,20 +145,35 @@ public class EventRESTController {
             model.addAttribute("eventTypes", eventTypeRepo.findAll());
             model.addAttribute("rsos", rsoRepo.findAll());
             model.addAttribute("event", event);
-
+            System.out.println(bindingResult);
             System.out.println("Invalid Event Created");
             return "newlayout/createEvent";
         }
 
         Event e = eventRepo.save(event);
+
         System.out.println(e);
         return String.format("redirect:/events/%d", e.getId_event());
     }
 
+    @RequestMapping(value = "/{id}/comment", method = RequestMethod.POST)
+    public String newComment(Model model, Principal principal, Comment comment, @PathVariable("id") Long id){
+        System.out.println("In new comment");
+
+        if(comment == null){
+            return String.format("redirect:/events/%d", id);
+        }
+
+        comment.setTimestamp(new Date());
+        commentRepo.save(comment);
+
+        return String.format("redirect:/events/%d", id);
+    }
+
+//    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+
     @RequestMapping(value = "/calendar", method = RequestMethod.GET)
     public String eventCalendar(Model model){
-
-
         return "test/placeholder";
     }
 }

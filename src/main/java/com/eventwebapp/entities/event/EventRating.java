@@ -1,6 +1,7 @@
 package com.eventwebapp.entities.event;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -15,8 +16,10 @@ import java.io.Serializable;
 public class EventRating implements Serializable{
 
     @Id
-    private
-    Long event;
+    @GeneratedValue
+    private Long id_rating;
+
+    private Long event;
 
     private Long reviewer;
 
@@ -31,6 +34,14 @@ public class EventRating implements Serializable{
         this.event = event;
         this.reviewer = reviewer;
         this.rating = rating;
+    }
+
+    public Long getId_rating() {
+        return id_rating;
+    }
+
+    public void setId_rating(Long id_rating) {
+        this.id_rating = id_rating;
     }
 
     public Long getEvent() {
