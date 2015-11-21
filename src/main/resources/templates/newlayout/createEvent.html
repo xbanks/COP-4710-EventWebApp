@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Login</title>
+    <title>University Events</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css" />
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
@@ -22,10 +22,9 @@
     <!-- top navigation bar with search-->
     <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
         <div class="w3-row">
-            <a href="#" th:href="@{/}">Home</a>
-            <a href="#" th:href="@{/events}">Events</a>
-            <a href="#" th:href="@{/rsos}">RSOs</a>
-            <a href="#" th:href="@{/admin}">Admin</a>
+           	<a href="events.html" th:href="@{/events}">Events</a>
+            <a href="rsos.html" th:href="@{/rsos}">RSOs</a>
+            <a href="adminevents.html" th:href="@{/admin}">Admin</a>
         </div>
         <div class="w3-row">
             <div class="w3-col">
@@ -43,10 +42,10 @@
             <div class="w3-topnav w3-light-grey w3-col l12">
                 <table class="w3-table">
                     <tr>
-                        <td><a href="#" th:href="@{/events/create}">New Event</a></td>
+                        <td><a href="createEvent.html" th:href="@{/events/create}">New Event</a></td>
                     </tr>
                     <tr>
-                        <td><a href="#" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
+                        <td><a href="yourRSOs.html" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
                     </tr>
                     <tr>
                         <td><a href="#" th:href="@{/events/calendar}">Calendar</a></td>
@@ -67,17 +66,17 @@
                     <!-- 3 text inputs -->
                     <div class="w3-input-group">
                         <label for="name">Name</label>
-                        <input id="name" type="text" name="1" required="required" th:field="*{name}" placeholder="E.g. House Party" autofocus="autofocus" class="w3-input" />
+                        <input id="name" type="text" name="1" required th:field="*{name}" placeholder="E.g. House Party" autofocus class="w3-input" />
                     </div>
                     <!-- number input -->
                     <div class="w3-row">    
                         <div class="w3-input-group w3-col l5 m5 s12 w3-left">
                             <label for="datepicker">Date</label>
-                            <input id="datepicker" class="w3-input" type="text" th:field="*{date}" required="required" />
+                            <input id="datepicker" class="w3-input" type="text" th:field="*{date}" required />
                         </div>
                         <div class="w3-input-group w3-col l5 m5 s12 w3-right">
                             <label for="time">Time</label>
-                            <input id="time" type="time" th:field="*{time}" class="w3-input" required="required" />
+                            <input id="time" type="time" th:field="*{time}" class="w3-input" required />
                         </div>
                     </div>
                     <div class="w3-input-group">
@@ -107,15 +106,15 @@
                     <div class="w3-input-group w3-row">
                         <div class="w3-col l5 m12 s12 w3-left">
                             <label for="contactName">Contact Name</label>
-                            <input class="w3-input" type="text" name="contactName" placeholder="John Johnson" th:field="*{contactName}" required="required" />
+                            <input class="w3-input" type="text" name="contactName" placeholder="John Johnson" th:field="*{contactName}" required />
                         </div>
                         <div class="w3-col l5 m12 s12 w3-right">
                             <label for="contactPhone">Contact Phone</label>
-                            <input class="w3-input" type="tel" name="contactPhone"  placeholder="555-555-5555" th:field="*{contactPhone}" required="required" />
+                            <input class="w3-input" type="tel" name="contactPhone"  placeholder="555-555-5555" th:field="*{contactPhone}" required />
                         </div>
                         <div class="w3-col l5 m12 s12">
                             <label for="contactEmail">Contact Email</label>
-                            <input class="w3-input" type="email" name="contactEmail"  placeholder="example@example.com" th:field="*{contactEmail}" required="required" />
+                            <input class="w3-input" type="email" name="contactEmail"  placeholder="example@example.com" th:field="*{contactEmail}" required />
                         </div>
                     </div>
                     <!-- blue submit button with the text "Create" -->

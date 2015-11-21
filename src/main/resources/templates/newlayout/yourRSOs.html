@@ -46,13 +46,8 @@
         <!-- list for #container -->
         <div id="element-list" class="inner-component main-content w3-right w3-white w3-card-2 w3-col l8 m12">
             <header id="element-list-header" class="w3-container w3-green">
-                <h3 class="w3-text" th:text="${listName}">[LIST TITLE]</h3>
+                <h3 class="w3-text" th:text="${listName}">Your RSOs</h3>
             </header>
-            <!-- <div id="list-topnav" class="w3-topnav w3-light-grey">
-                <a href="#">Lorem.</a>
-                <a href="#">Vel.</a>
-                <a href="#">Repellendus!</a>
-            </div> -->
             <div id="list-container" class="w3-row w3-container">
                 <div id="element-1" class="list-element w3-card-2 w3-col l12 m12" th:each="rso : ${list}">
                     <div class="list-element-content">

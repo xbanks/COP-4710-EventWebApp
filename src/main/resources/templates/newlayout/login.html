@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<title>Login</title>
+	<title>University Events</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" type="text/css" href="css/w3.css" />
 	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
@@ -12,7 +12,7 @@
 		    padding: 10px;
 		}
 		body {
-		    background-image: url("/images/mountains.jpg");
+		    background-image: url("mountains.jpg");
 		    background-color: #cccccc;
 		}
 
@@ -22,7 +22,6 @@
 	</style>
 </head>
 <body>
-<header class="w3-container w3-blue">University Events</header>
 <div class="w3-container w3-row">
 	<div class="w3-container center w3-col l6 m8 s12">
 		<form class="w3-form w3-card-8 w3-white" action="#" th:action="@{/login}" method="post">

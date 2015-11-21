@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Login</title>
+    <title>University Events</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css" />
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
@@ -15,10 +15,9 @@
     <!-- top navigation bar with search-->
     <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
         <div class="w3-row">
-            <a href="#" th:href="@{/}">Home</a>
-            <a href="#" th:href="@{/events}">Events</a>
-            <a href="#" th:href="@{/rsos}">RSOs</a>
-            <a href="#" th:href="@{/admin}">Admin</a>
+           	<a href="events.html" th:href="@{/events}">Events</a>
+            <a href="rsos.html" th:href="@{/rsos}">RSOs</a>
+            <a href="adminevents.html" th:href="@{/admin}">Admin</a>
         </div>
         <div class="w3-row">
             <div class="w3-col">
@@ -36,17 +35,14 @@
             <div class="w3-topnav w3-light-grey w3-col l12">
                 <table class="w3-table">
                     <tr>
-                        <td><a href="#" th:href="@{/events/create}">New Event</a></td>
+                        <td><a href="createEvent.html" th:href="@{/events/create}">New Event</a></td>
                     </tr>
                     <tr>
-                        <td><a href="#" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
+                        <td><a href="yourRSOs.html" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
                     </tr>
                     <tr>
                         <td><a href="#" th:href="@{/events/calendar}">Calendar</a></td>
                     </tr>
-                    <!-- 						<tr>
-							<td><a href="#" th:href="@{/events?sorttby=}">Popular Events</a></td> 
-						</tr> -->
                 </table>
             </div>
         </div>
