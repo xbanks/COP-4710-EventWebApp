@@ -22,4 +22,13 @@ public interface EventRepo extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM Event e WHERE e.type=:type")
     List<Event> findByType(@Param("type") Long type);
+
+    @Query("SELECT e FROM Event e, EventType et WHERE e.type=et.id_event_type AND et.name='PUBLIC'")
+    List<Event> findPublicEvents();
+
+    @Query("SELECT e FROM Event e, EventType et WHERE e.type=et.id_event_type AND et.name='PRIVATE'")
+    List<Event> findPrivateEvents();
+
+    @Query("SELECT e FROM Event e, EventType et WHERE e.type=et.id_event_type AND et.name='RSO'")
+    List<Event> findRsoEvents();
 }

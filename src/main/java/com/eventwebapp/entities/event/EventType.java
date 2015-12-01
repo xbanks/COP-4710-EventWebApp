@@ -15,8 +15,8 @@ import java.io.Serializable;
 @Table(name = "event_type")
 public class EventType implements Serializable {
     public static final Long PUBLIC = 0L;
-    public static final Long PRIVATE = 0L;
-    public static final Long RSO = 0L;
+    public static final Long PRIVATE = 1L;
+    public static final Long RSO = 2L;
 
     @Id
     private

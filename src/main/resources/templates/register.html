@@ -31,6 +31,10 @@
             <input id="email" class="w3-input" name="email" type="email" th:field="*{email}" />
         </div>
         <div class="w3-input-group">
+            <label for="username">Username</label>
+            <input id="username" class="w3-input" name="username" type="text" th:field="*{username}" />
+        </div>
+        <div class="w3-input-group">
             <label for="passwd">Password</label>
             <input id="passwd" class="w3-input" name="passwd" type="password"/>
         </div>
@@ -53,6 +57,9 @@
                         th:value="${university.id_university}"
                         th:text="${university.name}" />
             </select>
+        </div>
+        <div class="w3-input-group">
+            <input class="w3-input w3-checkbox" type="checkbox"  th:field="*{applyForSAdmin}">Apply for Super Admin Status</input>
         </div>
         <input class="w3-btn" type="submit" value="Register"/>
     </form>

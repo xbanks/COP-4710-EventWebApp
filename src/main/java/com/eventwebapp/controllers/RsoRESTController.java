@@ -5,6 +5,7 @@ import com.eventwebapp.entities.rso.RSO;
 import com.eventwebapp.entities.rso.RsoMember;
 import com.eventwebapp.forms.RsoForm;
 import com.eventwebapp.repositories.*;
+import com.eventwebapp.util.Utility;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,28 +31,25 @@ import java.util.stream.Collectors;
 public class RsoRESTController {
 
     @Autowired
-    private
-    RSORepo rsoRepo;
+    private RSORepo rsoRepo;
 
     @Autowired
-    private
-    RSOTypeRepo rsoTypeRepo;
+    private RSOTypeRepo rsoTypeRepo;
 
     @Autowired
-    private
-    UniversityRepo universityRepo;
+    private UniversityRepo universityRepo;
 
     @Autowired
-    private
-    UserRepo userRepo;
+    private UserRepo userRepo;
 
     @Autowired
-    private
-    RsoMemberRepo rsoMemberRepo;
+    private RsoMemberRepo rsoMemberRepo;
 
     @Autowired
-    private
-    EventRepo eventRepo;
+    private EventRepo eventRepo;
+
+    @Autowired
+    private Utility utility;
 
     // GET the list of all rsos on a page
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -107,16 +105,28 @@ public class RsoRESTController {
 
     // GET a single rso page
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String rsoPage(Model model, @PathVariable("id") Long id){
+    public String rsoPage(Model model, @PathVariable("id") Long id, Principal principal){
         // attach the rso to the model
         if(!rsoRepo.exists(id)){
             // TODO: Send the user to a DNE page
             return "test/placeholder";
         }
 
-        model.addAttribute("rso", rsoRepo.findOne(id));
+        if(principal != null){
+            Long userId = utility.emailToId(principal.getName());
+            if(isMember(id, userId)){
+                model.addAttribute("isMember", true);
+            }
+            else {
+                model.addAttribute("isNotMember", true);
+            }
+        }
+
+        RSO rso = rsoRepo.findOne(id);
+        model.addAttribute("rso", rso);
+        model.addAttribute("universityName", universityRepo.findOne(rso.getUniversity()).getName());
         // TODO: send user to rso page
-        return "test/placeholder";
+        return "newlayout/rsoPage";
     }
 
     // GET my rsos
@@ -165,11 +175,10 @@ public class RsoRESTController {
         return "newlayout/events";
     }
 
-
-
     private boolean doesUserExist(@Email String email){
         return userRepo.findByEmail(email) != null;
     }
+
 
     private boolean addRSOMembersByEmail(List<String> members, Long rsoId){
         members.stream()
@@ -178,6 +187,34 @@ public class RsoRESTController {
                 .forEach(id -> rsoMemberRepo.save(new RsoMember(rsoId, id)));
 
         return true;
+    }
+
+    private boolean addRsoMemberByEmail(String email, Long rsoId){
+        Long userId = userRepo.findByEmail(email).getId_user();
+
+        // If the user has not already joined this RSO, then add them
+        if(rsoMemberRepo.findByMemberAndRso(userId, rsoId) == null){
+            rsoMemberRepo.save(new RsoMember(rsoId, userId));
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean removeRsoMemberByEmail(String email, Long rsoId){
+        Long userId = userRepo.findByEmail(email).getId_user();
+
+        // If the user is a part of the RSO, then remove them
+        if(rsoMemberRepo.findByMemberAndRso(userId, rsoId) != null){
+            RsoMember rsoMember = rsoMemberRepo.findByMemberAndRso(userId, rsoId);
+            rsoMemberRepo.delete(rsoMember);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isMember(Long rsoId, Long userId){
+        return (rsoMemberRepo.findByMemberAndRso(userId, rsoId) != null);
     }
 
     private boolean addRSOMembersById(List<Long> members, Long rsoId){
@@ -208,4 +245,21 @@ public class RsoRESTController {
     }
 
     // TODO: Add member by email
+    @RequestMapping(value = "/{id}/addmember", method = RequestMethod.POST)
+    public String addMember(Model model, @PathVariable("id") Long rsoId, Principal principal){
+        if(principal != null){
+            addRsoMemberByEmail(principal.getName(), rsoId);
+        }
+
+        return String.format("redirect:/rsos/%d", rsoId);
+    }
+
+    @RequestMapping(value = "/{id}/removemember", method = RequestMethod.POST)
+    public String removeMember(Model model, @PathVariable("id") Long rsoId, Principal principal){
+        if(principal != null){
+            removeRsoMemberByEmail(principal.getName(), rsoId);
+        }
+
+        return String.format("redirect:/rsos/%d", rsoId);
+    }
 }

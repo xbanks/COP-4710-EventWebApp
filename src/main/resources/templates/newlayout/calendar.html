@@ -2,15 +2,94 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Login</title>
+    <title>Calendar View</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="stylesheet" type="text/css" href="/css/w3.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.print.css" media="print"/>
+
+    <script src="/js/jquery-1.11.3.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+
+    <script>
+
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			defaultDate: '2015-12-12',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2015-12-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2015-12-07',
+					end: '2015-12-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2015-12-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2015-12-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2015-12-11',
+					end: '2015-12-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2015-12-12T10:30:00',
+					end: '2015-12-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2015-12-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2015-12-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2015-12-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2015-12-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2015-12-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2015-12-28'
+				}
+			]
+		});
+
+	});
+
+    </script>
+
 </head>
 
 <body class="w3-container">
+
 <header class="w3-container w3-green w3-card-2">University Events</header>
 <!-- top navigation bar with search-->
 <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
@@ -53,19 +132,9 @@
     <!-- Form -->
     <div class="inner-component w3-card-4 w3-right w3-white w3-col l8 m12">
         <div class="w3-container w3-green">
-            <h3 th:text="${university.name}">University Name</h3>
+            <h3>Event Calendar</h3>
         </div>
-        <div
-                class="fb-like"
-                data-share="true"
-                data-width="450"
-                data-show-faces="true">
-        </div>
-        <div class="w3-white w3-container">
-            <p th:text="${university.description}">University Description</p>
-            <p th:text="${university.num_students}"></p> Students
-            <p th:text="${location}"></p>
-        </div>
+        <div class="w3-container" id="calendar"></div>
     </div>
 </div>
 </body>

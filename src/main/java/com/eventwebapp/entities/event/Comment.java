@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.StringJoiner;
 
 /**
  * Created by Xavier on 11/2/2015.
@@ -23,6 +24,9 @@ public class Comment  {
     @NotNull
     private
     Long commenter;
+
+    @NotNull
+    private String commenterName;
 
     @NotNull
     private
@@ -91,6 +95,14 @@ public class Comment  {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCommenterName() {
+        return commenterName;
+    }
+
+    public void setCommenterName(String commenterName) {
+        this.commenterName = commenterName;
     }
 
     @Override

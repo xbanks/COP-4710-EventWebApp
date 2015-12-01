@@ -23,6 +23,9 @@ public class Location implements Serializable {
     private
     Long id_location;
 
+    @NotEmpty
+    private String placeId;
+
     @NotEmpty @Size(min = 2)
     String name;
 
@@ -37,8 +40,9 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    public Location(String name, Float latitude, Float longitude) {
+    public Location(String name, String placeId, Float latitude, Float longitude) {
         this.name = name;
+        this.placeId = placeId;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -75,10 +79,19 @@ public class Location implements Serializable {
         this.longitude = longitude;
     }
 
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
     @Override
     public String toString() {
         return "Location{" +
                 "id_location=" + id_location +
+                ", placeId='" + placeId + '\'' +
                 ", name='" + name + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +

@@ -83,7 +83,6 @@ public class AdminRESTController {
 
     @RequestMapping(value = "/create/university", method = RequestMethod.GET)
     public String createUni(Model model, University university){
-
         return "newlayout/createUni";
     }
 
@@ -93,7 +92,7 @@ public class AdminRESTController {
             return "newlayout/createUni";
         }
 
-        return "redirect: /admin";
+        return "redirect:/admin";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)

@@ -45,7 +45,7 @@ public class EventwebappApplication {
             userRoleRepo.save(new UserRole(userId, UserRole.ADMIN));
 
             // new location for the university
-            Long locId = locationRepo.save(new Location("UCF", 28.6024321F, -81.2022486F)).getId_location();
+            Long locId = locationRepo.save(new Location("UCF", "ChIJX0kKal1o54gRq5vHs5Kb1V8", 28.6024321F, -81.2022486F)).getId_location();
 
             // new university
             Long uniId = universityRepo.save(new University("University of Central FL", "Orlandos one and only", locId, 55000L, "UCF")).getId_university();

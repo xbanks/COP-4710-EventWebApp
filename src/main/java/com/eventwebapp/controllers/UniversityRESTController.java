@@ -3,6 +3,7 @@ package com.eventwebapp.controllers;
 import com.eventwebapp.entities.other.Picture;
 import com.eventwebapp.entities.other.PictureMapping;
 import com.eventwebapp.entities.rso.University;
+import com.eventwebapp.repositories.LocationRepo;
 import com.eventwebapp.repositories.PictureMappingRepo;
 import com.eventwebapp.repositories.PictureRepo;
 import com.eventwebapp.repositories.UniversityRepo;
@@ -31,8 +32,6 @@ import java.util.stream.Collectors;
 /**
  * Created by Xavier on 11/4/2015.
  *
- * TODO: map the university creation page to a /sadmin/university/new
- * TODO:  map others to /university/
  */
 
 @Controller
@@ -40,34 +39,16 @@ import java.util.stream.Collectors;
 public class UniversityRESTController {
 
     @Autowired
-    private
-    UniversityRepo universityRepo;
+    private UniversityRepo universityRepo;
 
     @Autowired
-    PictureMappingRepo pictureMappingRepo;
+    private PictureMappingRepo pictureMappingRepo;
 
     @Autowired
-    private
-    PictureRepo pictureRepo;
+    private PictureRepo pictureRepo;
 
-    // TODO: GET university creation page
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String newUniversity(Model model, University university){
-        return "test/placeholder";
-    }
-
-    // TODO: POST to university creation page
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createNewUniversity(Model model, @Valid University university, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("message", "there were errors creating this university");
-            return "test/placeholder";
-        }
-
-        universityRepo.save(university);
-        return "test/placeholder";
-    }
-
+    @Autowired
+    private LocationRepo locationRepo;
 
     // TODO: GET single university profile
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -76,11 +57,12 @@ public class UniversityRESTController {
             model.addAttribute("message", String.format("There is no university with id %d", id));
         }
 
-        model.addAttribute(universityRepo.findOne(id));
+        University university = universityRepo.findOne(id);
+        model.addAttribute("university", university);
+        model.addAttribute("location", locationRepo.findOne(university.getUni_location()).getName());
 
-        return "test/placeholder";
+        return "newlayout/uniPage";
     }
-
 
     // TODO: 11/10/15 Put all of the methods pertaining to pictures into their own controller
     @RequestMapping(value = "/pictures", method = RequestMethod.GET)

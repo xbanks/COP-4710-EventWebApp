@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+
+<body class="w3-container">
+<header class="w3-container w3-green w3-card-2">University Events</header>
+<!-- top navigation bar with search-->
+<nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
+    <div class="w3-row">
+        <a href="#" th:href="@{/}">Home</a>
+        <a href="#" th:href="@{/events}">Events</a>
+        <a href="#" th:href="@{/rsos}">RSOs</a>
+        <a href="#" th:href="@{/admin}">Admin</a>
+    </div>
+    <div class="w3-row">
+        <div class="w3-col">
+            <input type="text" name="search" placeholder="search" class="w3-input" />
+        </div>
+    </div>
+</nav>
+<!-- content container -->
+<div id="container" class="w3-row">
+    <!-- Side nav for content #container -->
+    <div id="sidenav" class="inner-component w3-card-2 w3-white w3-col l3">
+        <header class="w3-container w3-green">
+            <h3>Sidenav</h3>
+        </header>
+        <div class="w3-topnav w3-light-grey w3-col l12">
+            <table class="w3-table">
+                <tr>
+                    <td><a href="#" th:href="@{/events/create}">New Event</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" th:href="@{/events/calendar}">Calendar</a></td>
+                </tr>
+                <!-- 						<tr>
+                        <td><a href="#" th:href="@{/events?sorttby=}">Popular Events</a></td>
+                    </tr> -->
+            </table>
+        </div>
+    </div>
+    <!-- Form -->
+    <div class="inner-component w3-card-4 w3-right w3-white w3-col l8 m12">
+        <div class="w3-container w3-green w3-row">
+            <h3 class="w3-left" th:text="${rso.name}">Rso Name</h3>
+            <form class="w3-right" th:if="${isNotMember}" action="#" th:action="@{/rsos/{id}/addmember(id=${rso.id_rso})}" method="post">
+                <input class="w3-btn w3-blue" type="submit" value="join or leave" th:value="Join" />
+            </form>
+
+            <form class="w3-right" th:if="${isMember}" action="#" th:action="@{/rsos/{id}/removemember(id=${rso.id_rso})}" method="post">
+                <input class="w3-btn w3-red" type="submit" value="join or leave" th:value="Leave" />
+            </form>
+        </div>
+        <div
+                class="fb-like"
+                data-share="true"
+                data-width="450"
+                data-show-faces="true">
+        </div>
+        <div class="w3-white w3-container">
+            <p th:text="${rso.description}">Rso Description</p>
+            <p th:text="${rso.num_members}"></p> Members
+            <p th:text="${universityName}"></p>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
