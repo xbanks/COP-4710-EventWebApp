@@ -4,7 +4,7 @@
 <head>
     <title>University Events</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/css/w3.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css" />
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -34,47 +34,40 @@
             </header>
             <div class="w3-topnav w3-light-grey w3-col l12">
                 <table class="w3-table">
-                    <tr>
-                        <td><a href="createEvent.html" th:href="@{/events/create}">New Event</a></td>
+                	<tr>
+                        <td><a href="createRso.html" th:href="@{/rsos/create}">New RSO</a></td>
                     </tr>
                     <tr>
-                        <td><a href="yourRSOs.html" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" th:href="@{/events/calendar}">Calendar</a></td>
+                        <td><a href="yourRSOs.html" th:href="@{/rsos/myrsos}">Your RSOs</a></td>
                     </tr>
                 </table>
             </div>
         </div>
-        <!-- Events list for #container -->
+        <!-- list for #container -->
         <div id="element-list" class="inner-component main-content w3-right w3-white w3-card-2 w3-col l8 m12">
             <header id="element-list-header" class="w3-container w3-green">
-                <h3 class="w3-text" th:text="${listName}">[LIST TITLE]</h3>
+                <h3 class="w3-text" th:text="${listName}">Your RSOs</h3>
             </header>
-            <div id="list-topnav" class="w3-topnav w3-light-grey">
-                <a href="#">Sort By Name</a>
-                <a href="#">Sort By Date</a>
-                <a href="#">Sort By Type</a>
-            </div>
             <div id="list-container" class="w3-row w3-container">
-                <div id="element-1" class="list-element w3-card-2 w3-col l12 m12" th:each="event : ${list}">
+                <div id="element-1" class="list-element w3-card-2 w3-col l12 m12" th:each="rso : ${list}">
                     <div class="list-element-content">
                         <header class="w3-container">
                             <h3 class="list-element-header">
-		          <a href="#" th:href="@{/events/{id}(id=${event.id_event})}" th:text="${event.name}">Event Name</a>
-		      </h3>
+            		<a href="#" th:href="@{/rsos/{id}(id=${rso.id_rso})}" th:text="${rso.name}">RSO Name</a>
+            	       </h3>
                         </header>
                         <div class="w3-container">
-                            <h3> <b class="w3-text" th:text="${event.time}">Event Time</b></h3>
-                            <div class="w3-text w3-large" th:text="${#dates.format(event.date, 'MMM d')}">Event Date</div>
-                            <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium minima autem possimus quos repudiandae laboriosam, animi harum perferendis mollitia aut.</p>
+                            <div class="w3-text" th:text="${rso.type}">RSO Something</div>
+                            <div class="list-description">
+                                <p class="w3-small" th:text="${rso.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium minima autem possimus quos repudiandae laboriosam, animi harum perferendis mollitia aut.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <footer class="w3-container w3-green">
-                <a th:if="${prev_page>=0}" href="#" th:href="@{/events?page={pg}(pg=${prev_page})}"><i class="w3-left material-icons">chevron_left</i></a>
-                <a th:if="${next_page}" href="#" th:href="@{/events?page={pg}(pg=${next_page})}"><i class="w3-right material-icons">chevron_right</i></a>
+                <a th:if="${prev_page>=0}" href="#" th:href="@{/rsos?page={pg}(pg=${prev_page})}"><i class="w3-left material-icons">chevron_left</i></a>
+                <a th:if="${next_page}" href="#" th:href="@{/rsos?page={pg}(pg=${next_page})}"><i class="w3-right material-icons">chevron_right</i></a>
             </footer>
         </div>
     </div>

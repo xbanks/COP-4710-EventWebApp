@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Login</title>
+    <title>University Events</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/css/w3.css" />
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
@@ -17,10 +17,9 @@
         <div class="w3-row">
             <div class="w3-row">
                 <div class="w3-col">
-                    <a href="#" th:href="@{/}">Home</a>
-                    <a href="#" th:href="@{/events}">Events</a>
-                    <a href="#" th:href="@{/rsos}">RSOs</a>
-                    <a href="#" th:href="@{/admin}">Admin</a>
+           	 		<a href="events.html" th:href="@{/events}">Events</a>
+            		<a href="rsos.html" th:href="@{/rsos}">RSOs</a>
+            		<a href="adminevents.html" th:href="@{/admin}">Admin</a>
                 </div>
             </div>
         </div>
@@ -40,13 +39,10 @@
             <div class="w3-topnav w3-light-grey w3-col l12">
                 <table class="w3-table">
                     <tr>
-                        <td><a href="#" th:href="@{/rsos/create}">New RSO</a></td>
+                        <td><a href="createRso.html" th:href="@{/rsos/create}">New RSO</a></td>
                     </tr>
                     <tr>
-                        <td><a href="#" th:href="@{/rsos}">All RSOs</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" th:href="@{/rsos/myrsos}">Your RSOs</a></td>
+                        <td><a href="yourRSOs.html" th:href="@{/rsos/myrsos}">Your RSOs</a></td>
                     </tr>
                 </table>
             </div>
@@ -61,7 +57,7 @@
                     <!-- 3 text inputs -->
                     <div class="w3-input-group">
                         <label for="name">Name</label>
-                        <input id="name" type="text" name="1" required="required" th:field="*{name}" placeholder="E.g. University of Central Florida" class="w3-input" />
+                        <input id="name" type="text" name="1" required th:field="*{name}" placeholder="E.g. Math Club" class="w3-input" />
                     </div>
                     <div class="w3-input-group">
                         <label for="university">Affiliated University</label>
@@ -87,23 +83,23 @@
                     </div>
                     <div class="w3-input-group">
                         <label for="admin">Admin</label>
-                        <input type="email" class="w3-input" placeholder="Email" id="admin" th:field="*{adminEmail}" required="required" />
+                        <input type="email" class="w3-input" placeholder="Email" id="admin" th:field="*{adminEmail}" required />
                     </div>
                     <div class="w3-input-group">
                         <label for="user1">Member #1</label>
-                        <input type="email" class="w3-input" placeholder="Email" id="user1" th:field="*{userEmail1}" required="required" />
+                        <input type="email" class="w3-input" placeholder="Email" id="user1" th:field="*{userEmail1}" required />
                     </div>
                     <div class="w3-input-group">
                         <label for="user2">Member #2</label>
-                        <input type="email" class="w3-input" placeholder="Email" id="user2" th:field="*{userEmail2}" required="required" />
+                        <input type="email" class="w3-input" placeholder="Email" id="user2" th:field="*{userEmail2}" required />
                     </div>
                     <div class="w3-input-group">
                         <label for="user3">Member #3</label>
-                        <input type="email" class="w3-input" placeholder="Email" id="user3" th:field="*{userEmail3}" required="required" />
+                        <input type="email" class="w3-input" placeholder="Email" id="user3" th:field="*{userEmail3}" required />
                     </div>
                     <div class="w3-input-group">
                         <label for="user4">Member #4</label>
-                        <input type="email" class="w3-input" placeholder="Email" id="user4" th:field="*{userEmail4}" required="required" />
+                        <input type="email" class="w3-input" placeholder="Email" id="user4" th:field="*{userEmail4}" required />
                     </div>
                     <!-- blue submit button with the text "Create" -->
                     <button class="w3-btn w3-blue" type="submit">Create</button>
