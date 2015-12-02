@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>University Events</title>
+    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/css/w3.css" />
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css' />
@@ -26,7 +26,6 @@
 </head>
 
 <body class="w3-container">
-<<<<<<< HEAD
 <header class="w3-container w3-green w3-card-2">University Events</header>
 <!-- top navigation bar with search-->
 <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
@@ -39,15 +38,6 @@
     <div class="w3-row">
         <div class="w3-col">
             <input type="text" name="search" placeholder="search" class="w3-input" />
-=======
-    <header class="w3-container w3-green w3-card-2">University Events</header>
-    <!-- top navigation bar with search-->
-    <nav id="topnav" class="w3-topnav w3-light-grey w3-card-2">
-        <div class="w3-row">
-           	<a href="events.html" th:href="@{/events}">Events</a>
-            <a href="rsos.html" th:href="@{/rsos}">RSOs</a>
-            <a href="adminevents.html" th:href="@{/admin}">Admin</a>
->>>>>>> 6199945975f1dc0777b32cdd57466eeb089bba81
         </div>
     </div>
 </nav>
@@ -74,7 +64,6 @@
                     </tr> -->
             </table>
         </div>
-<<<<<<< HEAD
     </div>
     <!-- Form -->
     <div class="inner-component w3-card-4 w3-right w3-white w3-col l8 m12">
@@ -93,61 +82,6 @@
                     <div class="w3-input-group w3-col l5 m5 s12 w3-left">
                         <label for="datepicker">Date</label>
                         <input id="datepicker" class="w3-input" type="text" th:field="*{date}" required="required" />
-=======
-    </nav>
-    <!-- content container -->
-    <div id="container" class="w3-row">
-        <!-- Side nav for content #container -->
-        <div id="sidenav" class="inner-component w3-card-2 w3-white w3-col l3">
-            <header class="w3-container w3-green">
-                <h3>Sidenav</h3>
-            </header>
-            <div class="w3-topnav w3-light-grey w3-col l12">
-                <table class="w3-table">
-                    <tr>
-                        <td><a href="createEvent.html" th:href="@{/events/create}">New Event</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="yourRSOs.html" th:href="@{/rsos/myrsos/events}">RSO Events</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" th:href="@{/events/calendar}">Calendar</a></td>
-                    </tr>
-                    <!--                        <tr>
-                            <td><a href="#" th:href="@{/events?sorttby=}">Popular Events</a></td> 
-                        </tr> -->
-                </table>
-            </div>
-        </div>
-        <!-- Form -->
-        <div class="inner-component w3-card-4 w3-right w3-white w3-col l8 m12">
-            <div class="w3-container w3-green">
-                <h3>Create a new Event</h3>
-            </div>
-            <div class="w3-white">
-                <form action="#" th:action="@{/events/create}" method="post" class="w3-form" th:object="${event}">
-                    <!-- 3 text inputs -->
-                    <div class="w3-input-group">
-                        <label for="name">Name</label>
-                        <input id="name" type="text" name="1" required th:field="*{name}" placeholder="E.g. House Party" autofocus class="w3-input" />
-                    </div>
-                    <!-- number input -->
-                    <div class="w3-row">    
-                        <div class="w3-input-group w3-col l5 m5 s12 w3-left">
-                            <label for="datepicker">Date</label>
-                            <input id="datepicker" class="w3-input" type="text" th:field="*{date}" required />
-                        </div>
-                        <div class="w3-input-group w3-col l5 m5 s12 w3-right">
-                            <label for="time">Time</label>
-                            <input id="time" type="time" th:field="*{time}" class="w3-input" required />
-                        </div>
-                    </div>
-                    <div class="w3-input-group">
-                        <label for="type">Type</label>
-                        <select id="type" th:field="*{type}" class="w3-input">
-                            <option th:each="type : ${eventTypes}" th:value="${type.id_event_type}" th:text="${type.name}" />
-                        </select>
->>>>>>> 6199945975f1dc0777b32cdd57466eeb089bba81
                     </div>
                     <div class="w3-input-group w3-col l5 m5 s12 w3-right">
                         <label for="time">Time</label>
@@ -185,25 +119,9 @@
                         <label for="contactPhone">Contact Phone</label>
                         <input id="contactPhone" class="w3-input" type="number" name="contactPhone"  placeholder="555-555-5555" th:field="*{contactPhone}" required="required" />
                     </div>
-<<<<<<< HEAD
                     <div class="w3-col l5 m12 s12">
                         <label for="contactEmail">Contact Email</label>
                         <input id="contactEmail" class="w3-input" type="email" name="contactEmail"  placeholder="example@example.com" th:field="*{contactEmail}" required="required" />
-=======
-                    <div class="w3-input-group w3-row">
-                        <div class="w3-col l5 m12 s12 w3-left">
-                            <label for="contactName">Contact Name</label>
-                            <input class="w3-input" type="text" name="contactName" placeholder="John Johnson" th:field="*{contactName}" required />
-                        </div>
-                        <div class="w3-col l5 m12 s12 w3-right">
-                            <label for="contactPhone">Contact Phone</label>
-                            <input class="w3-input" type="tel" name="contactPhone"  placeholder="555-555-5555" th:field="*{contactPhone}" required />
-                        </div>
-                        <div class="w3-col l5 m12 s12">
-                            <label for="contactEmail">Contact Email</label>
-                            <input class="w3-input" type="email" name="contactEmail"  placeholder="example@example.com" th:field="*{contactEmail}" required />
-                        </div>
->>>>>>> 6199945975f1dc0777b32cdd57466eeb089bba81
                     </div>
                 </div>
 
